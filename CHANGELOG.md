@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. Particular 
 - shadcn/ui (new-york style, lucide icons) with `cn()` utility
 - Core dependencies: Zod 3, Mongoose 9, @anthropic-ai/sdk
 - CLAUDE.md with project-specific conventions, tech stack reference, and auto-generated Next.js 16 docs index via `@next/codemod agents-md`
+- Implementation plan (.ai/implementation-plan.md) — 10-step dependency-ordered build sequence with promptfoo integration and prompt injection defense strategy
 
 ### Changed
 
