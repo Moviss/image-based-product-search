@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added
+- Next.js 16.1.6 project scaffold via `create-next-app` (TypeScript, Tailwind CSS 4, ESLint 9, App Router, Turbopack)
+- shadcn/ui (new-york style, lucide icons) with `cn()` utility
+- Core dependencies: Zod 3, Mongoose 9, @anthropic-ai/sdk
+- CLAUDE.md with project-specific conventions, tech stack reference, and auto-generated Next.js 16 docs index via `@next/codemod agents-md`
+
 ### Changed
 
 **Tech stack migration: Vite + Express monorepo -> Next.js 16 single project**
