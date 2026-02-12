@@ -13,15 +13,16 @@ A full-stack application that lets users upload an image of a furniture item and
 ## Architecture Overview
 
 ```
-┌─────────────┐     ┌─────────────────────────────────────────────────┐
-│   Browser    │     │                   Server                       │
-│             │     │                                                 │
-│  React +    │────>│  Express API                                    │
-│  shadcn/ui  │     │    │                                            │
-│  Tailwind   │<────│    ├─> Claude Vision (image analysis)           │
-│             │     │    ├─> MongoDB (candidate retrieval)             │
-│             │     │    └─> Claude Text (re-ranking + scoring)        │
-└─────────────┘     └─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                     Next.js 16 (App Router)                  │
+│                                                              │
+│  Client (React 19 + shadcn/ui + Tailwind CSS 4)             │
+│    │                                                         │
+│  API Route Handlers (/app/api/*)                             │
+│    ├─> Claude Vision (image analysis)                        │
+│    ├─> MongoDB (candidate retrieval)                         │
+│    └─> Claude Text (re-ranking + scoring)                    │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ### Key Design Choices
@@ -47,12 +48,12 @@ A full-stack application that lets users upload an image of a furniture item and
 
 | Layer | Technology |
 |---|---|
-| Frontend | Vite + React + TypeScript + shadcn/ui + Tailwind CSS |
-| Routing | React Router (/, /admin) |
-| Backend | Express + TypeScript |
-| Database | MongoDB Atlas (read-only, pre-populated) |
-| AI | Claude API (Vision + Text) by Anthropic |
-| Upload | Multer (in-memory) |
+| Framework | Next.js 16 (App Router) + React 19 + TypeScript |
+| UI | shadcn/ui + Tailwind CSS 4 |
+| Validation | Zod 3 (runtime input validation + type inference) |
+| Database | MongoDB Atlas (read-only, pre-populated) via Mongoose 9 |
+| AI | Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk |
+| Upload | Next.js Route Handlers (in-memory FormData) |
 
 ## Getting Started
 
@@ -71,11 +72,11 @@ cd image-based-product-search
 # Install dependencies
 npm install
 
-# Start development servers (client + server)
+# Start development server
 npm run dev
 ```
 
-The client runs on `http://localhost:5173` and the server on `http://localhost:3000`.
+The application runs on `http://localhost:3000`.
 
 ### Usage
 

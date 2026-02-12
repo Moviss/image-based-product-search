@@ -7,12 +7,12 @@ Image-Based Product Search is a full-stack web application that allows users to 
 Users can optionally add a natural-language query to modify the search context (e.g., preferred color, budget). The application includes an admin panel for configuring search parameters and AI system prompts without code changes.
 
 Tech stack:
-- Frontend: Vite + React + TypeScript + shadcn/ui + Tailwind CSS
-- Backend: Express + TypeScript
-- Database: MongoDB Atlas (read-only)
-- AI: Claude API (Vision + Text) by Anthropic
-- Upload: Multer (in-memory)
-- Structure: monorepo with /client, /server, /shared directories
+- Full-stack framework: Next.js 16 (App Router) + React 19 + TypeScript
+- UI: shadcn/ui + Tailwind CSS 4
+- Database: MongoDB Atlas (read-only) via Mongoose 9
+- AI: Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk
+- Validation: Zod 3 for runtime input validation and type inference
+- Upload: Next.js Route Handlers with in-memory FormData processing
 
 ## 2. User Problem
 
@@ -27,14 +27,14 @@ This application solves the problem by enabling users to upload a photo and imme
 ### 3.1 API Key Configuration
 
 - RF-001: The application requires an Anthropic API key before any functionality is available.
-- RF-002: The API key is stored exclusively in memory — on the client side in React state, on the server side per-request. The key is never persisted to disk.
+- RF-002: The API key is stored exclusively in memory — on the client side in React state, passed to Next.js Route Handlers per-request via headers. The key is never persisted to disk.
 - RF-003: The application validates the API key before granting access to search functionality.
 
 ### 3.2 Image Upload
 
 - RF-004: The system accepts images in JPEG, PNG, and WebP formats.
 - RF-005: Maximum file size is 10 MB.
-- RF-006: Upload is handled by Multer in in-memory mode — the image is never saved to disk.
+- RF-006: Upload is handled by Next.js Route Handlers with in-memory FormData processing — the image is never saved to disk.
 - RF-007: After selecting a file, the user sees a preview of the uploaded image.
 - RF-008: The image is converted to base64 and sent to Claude API.
 
@@ -80,17 +80,18 @@ This application solves the problem by enabling users to upload a photo and imme
 - RF-028: It allows editing the system prompt for re-ranking.
 - RF-029: It allows configuration of numeric parameters: number of displayed results (range 3-12), maximum number of candidates for re-ranking, minimum score threshold.
 - RF-030: It displays a preview of available categories and types from the database.
-- RF-031: Configuration changes are applied immediately without server restart and are stored in server memory.
+- RF-031: Configuration changes are applied immediately without server restart and are stored in server-side in-process memory (module-level state in Next.js).
 
 ### 3.10 Backend API
 
-- RF-032: The backend exposes ~6 REST endpoints:
+- RF-032: The backend exposes ~6 API Route Handlers (Next.js App Router):
   - POST /api/search — image upload + optional prompt, returns results
   - POST /api/key — API key validation
   - GET /api/admin/config — retrieve current configuration
   - PUT /api/admin/config — update configuration
   - GET /api/admin/taxonomy — retrieve categories and types from the database
   - POST /api/feedback — save result relevance feedback
+- RF-033: All API inputs are validated at the boundary using Zod schemas — file type/size, prompt length, config parameters, API key format.
 
 ## 4. Product Boundaries
 

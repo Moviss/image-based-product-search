@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Changed
+
+**Tech stack migration: Vite + Express monorepo -> Next.js 16 single project**
+
+Prompt to agent: _"Perform a critical analysis of the tech stack against PRD requirements. Consider: MVP delivery speed, scalability, maintenance cost, complexity vs needs, simpler alternatives, and security."_
+
+Analysis concluded that running two separate TypeScript projects (Vite SPA + Express API) with `concurrently` was over-engineered for an MVP with 2 pages and 6 endpoints. Key issues: duplicate TypeScript configs, CORS between dev servers, missing input validation, no security headers.
+
+Decision: Migrate to Next.js 16 (App Router). This eliminates the monorepo overhead — file-based routing replaces React Router, API Route Handlers replace Express + Multer, and Zod schemas replace the missing validation layer. Single `npm run dev` command, single port, no CORS configuration needed.
+
+- Replaced Vite 7 + React Router 7 with Next.js 16.1 (App Router, file-based routing)
+- Replaced Express 5 + Multer 2 backend with Next.js API Route Handlers (in-memory FormData)
+- Added Zod 3 for runtime input validation at all API boundaries (RF-033)
+- Replaced monorepo structure (`/client`, `/server`, `/shared`) with single Next.js project (`/app`, `/components`, `/lib`, `/lib/schemas`)
+- Updated PRD references: RF-002, RF-006, RF-031, RF-032; added RF-033
+- Kept: React 19, TypeScript 5.9, Tailwind CSS 4, shadcn/ui, Mongoose 9, @anthropic-ai/sdk
+
 ### Added
 - Project planning and requirements documentation (.ai/prd.md)
 - Product Requirements Document (PRD) with 24 user stories covering all core flows, edge cases, and admin functionality
