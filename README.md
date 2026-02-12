@@ -66,7 +66,7 @@ A full-stack application that lets users upload an image of a furniture item and
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Moviss/image-based-product-search
 cd image-based-product-search
 
 # Install dependencies
