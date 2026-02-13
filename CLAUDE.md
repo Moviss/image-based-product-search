@@ -23,8 +23,17 @@ app/              — Pages, layouts, API route handlers
 app/api/          — Route Handlers (~6 endpoints)
 components/       — React components (ui/ for shadcn)
 lib/              — Server-side logic (Claude, MongoDB, config)
-lib/schemas/      — Zod validation schemas
+lib/schemas/      — Zod validation schemas (product, search, admin, feedback, api-key, taxonomy)
+lib/models/       — Mongoose models (Product)
+lib/db.ts         — Mongoose connection singleton (globalThis cached)
+lib/config-store.ts — In-memory admin config with default prompts
 ```
+
+## Implementation Progress
+
+- **Step 1** [DONE] — Zod schemas, MongoDB connection, Product model, config store
+- **Step 2** [NEXT] — Claude service (Vision + Text)
+- Steps 3–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
 

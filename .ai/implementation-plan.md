@@ -1,12 +1,14 @@
 # Implementation Plan
 
-## Step 1: Foundation — Zod schemas + MongoDB + config store
+## Step 1: Foundation — Zod schemas + MongoDB + config store [DONE]
 
-- Define all Zod schemas (API contracts): SearchRequest, SearchResponse, ImageAnalysisResult, AdminConfig, FeedbackRequest, Product, Taxonomy
-- Mongoose connection singleton to Atlas cluster
-- Product model matching existing DB schema
-- In-memory config store with default system prompts and parameters (results count, max candidates, score threshold)
-- Verify: connect to Atlas, query `products.find().limit(5)`
+- [x] Zod 4 schemas (7 files in `lib/schemas/`): Product, ScoredProduct, SearchRequest, ImageAnalysisResult, AdminConfig, FeedbackRequest, ApiKeyRequest, TaxonomyCategory — all with `z.infer<>` type derivation
+- [x] Barrel re-exports from `lib/schemas/index.ts`
+- [x] Mongoose connection singleton (`lib/db.ts`) with globalThis caching for dev hot reloads
+- [x] Product model (`lib/models/product.ts`) mapping to read-only `products` collection
+- [x] In-memory config store (`lib/config-store.ts`) with default prompts and tunable parameters
+- [x] Verified: Atlas connection, 5 products validated, 15 categories / 63 types aggregated, config store getConfig/updateConfig confirmed
+- [x] All acceptance criteria from `.ai/step-1-plan.md` passed (tsc clean, eslint clean, .env.local gitignored)
 
 ## Step 2: Claude service (Vision + Text)
 
