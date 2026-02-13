@@ -7,11 +7,15 @@ All notable changes to this project will be documented in this file. Particular 
 ### Added — Step 2.5: Promptfoo Setup + Prompt Evaluation
 - Extracted prompt templates from hardcoded strings in `config-store.ts` into versioned files: `prompts/image-analysis.txt`, `prompts/reranking.txt` — single source of truth for both the app and promptfoo evaluation
 - `config-store.ts` now loads defaults via `fs.readFileSync()` from `prompts/*.txt` at module init
-- Promptfoo evaluation framework with custom TypeScript provider wrapping Claude Vision API
+- Promptfoo evaluation framework with custom TypeScript provider wrapping Claude Vision API (self-contained, loads images from filesystem, strips markdown fences)
 - Setup script (`scripts/setup-promptfoo.ts`) fetches taxonomy from MongoDB and saves as fixture for offline eval
 - 12 test cases (10 furniture + 2 non-furniture) with expected labels matched to live taxonomy (15 categories, 62 types)
 - 5 named assertion metrics: `json-valid`, `schema-valid`, `furniture-detection`, `category-accuracy`, `type-accuracy` — mapped to PRD targets (>85%, >70%, 100%)
 - npm scripts: `eval:setup` (one-time taxonomy fetch), `eval` (run evaluation), `eval:view` (interactive dashboard)
+- Baseline: 12/12 (100%), deterministic with `--repeat 3`
+
+### Changed — Step 2.5
+- Set `temperature: 0` for `analyzeImage` and `rerankCandidates` API calls in `lib/claude.ts` — eliminates non-deterministic classification, significantly improves eval consistency
 
 ### Added — Step 2: Claude Service (Vision + Text)
 - Prompt template renderer with `{{taxonomy}}`, `{{resultsCount}}`, and conditional `{{#userPrompt}}...{{/userPrompt}}` block substitution (`lib/prompt.ts`)

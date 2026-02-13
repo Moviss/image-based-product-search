@@ -30,8 +30,10 @@
 - [x] Setup script (`scripts/setup-promptfoo.ts`) fetches taxonomy from MongoDB and saves as fixture
 - [x] Self-contained custom provider (`promptfoo/providers/image-analysis.ts`) — no `@/lib/` imports
 - [x] 12 test cases (10 furniture + 2 non-furniture) with expected labels matched to live taxonomy
-- [x] 5 assertion metrics: `json-valid`, `schema-valid`, `furniture-detection`, `category-accuracy`, `type-accuracy` + latency/cost bounds
+- [x] 5 assertion metrics: `json-valid`, `schema-valid`, `furniture-detection`, `category-accuracy`, `type-accuracy` + latency bound
+- [x] `temperature: 0` in `lib/claude.ts` (analyzeImage + rerankCandidates) — deterministic classification
 - [x] `.gitignore` updated for promptfoo output/cache/fixtures
+- [x] Baseline: 12/12 (100%), deterministic with `--repeat 3`
 - [x] tsc clean, eslint clean
 
 ## Step 3: Search pipeline (orchestration)
