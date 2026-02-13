@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 2: Claude Service (Vision + Text)
+- Prompt template renderer with `{{taxonomy}}`, `{{resultsCount}}`, and conditional `{{#userPrompt}}...{{/userPrompt}}` block substitution (`lib/prompt.ts`)
+- Cached taxonomy fetcher — MongoDB aggregation with 5-minute in-memory TTL, formatted string output for prompt injection (`lib/taxonomy.ts`)
+- `analyzeImage` — sends base64 image to Claude Vision, returns Zod-validated `ImageAnalysisResult` with furniture classification and attributes (`lib/claude.ts`)
+- `rerankCandidates` — scores product candidates against reference image, maps back to `ScoredProduct[]`, filters hallucinated IDs (`lib/claude.ts`)
+- `validateApiKey` — minimal API call to verify Anthropic key validity, catches `AuthenticationError` (`lib/claude.ts`)
+- JSON extraction helper that strips markdown fences from Claude responses before parsing
+- Verification script for manual end-to-end testing (`scripts/verify-step2.ts`)
+
 ### Added — Step 1: Foundation (data layer + contracts)
 - Zod 4 schemas defining API contracts: Product, ScoredProduct, SearchRequest, ImageAnalysisResult, AdminConfig, FeedbackRequest, ApiKeyRequest, TaxonomyCategory (`lib/schemas/`)
 - Mongoose connection singleton with globalThis caching for dev hot-reload safety (`lib/db.ts`)

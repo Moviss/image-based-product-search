@@ -42,5 +42,8 @@ next-env.d.ts
 # editor
 .zed/
 
+# test images (user-provided, not committed)
+scripts/test-chair.*
+
 # next-agents-md
 .next-docs/

@@ -32,7 +32,7 @@ lib/config-store.ts — In-memory admin config with default prompts
 ## Implementation Progress
 
 - **Step 1** [DONE] — Zod schemas, MongoDB connection, Product model, config store
-- **Step 2** [NEXT] — Claude service (Vision + Text)
+- **Step 2** [DONE] — Claude service (Vision + Text), prompt renderer, taxonomy cache
 - Steps 3–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
