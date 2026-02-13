@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 1: Foundation (data layer + contracts)
+- Zod 4 schemas defining API contracts: Product, ScoredProduct, SearchRequest, ImageAnalysisResult, AdminConfig, FeedbackRequest, ApiKeyRequest, TaxonomyCategory (`lib/schemas/`)
+- Mongoose connection singleton with globalThis caching for dev hot-reload safety (`lib/db.ts`)
+- Product model mapping to read-only `products` collection with re-declaration guard (`lib/models/product.ts`)
+- In-memory config store with default image analysis and re-ranking prompts, tunable parameters: resultsCount (6), maxCandidates (50), scoreThreshold (0) (`lib/config-store.ts`)
+- Verified against live Atlas cluster: 2,500 products, 15 categories, 63 types
+
 ### Added
 - Next.js 16.1.6 project scaffold via `create-next-app` (TypeScript, Tailwind CSS 4, ESLint 9, App Router, Turbopack)
 - shadcn/ui (new-york style, lucide icons) with `cn()` utility
