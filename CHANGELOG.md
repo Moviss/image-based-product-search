@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 2.5: Promptfoo Setup + Prompt Evaluation (plan)
+- Implementation plan for offline prompt evaluation with promptfoo (`.ai/step-2.5-plan.md`)
+- Custom TypeScript provider wrapping Claude Vision API for image analysis prompt testing
+- 12 test cases (10 furniture categories + 2 non-furniture) with named metrics: `category-accuracy`, `type-accuracy`, `furniture-detection` — mapped to PRD targets (>85%, >70%, 100%)
+- Single source of truth for prompts: `prompts/*.txt` files loaded by both the app (`config-store.ts` via `fs.readFileSync`) and promptfoo evaluation — eliminates divergence risk from manual sync
+
 ### Added — Step 2: Claude Service (Vision + Text)
 - Prompt template renderer with `{{taxonomy}}`, `{{resultsCount}}`, and conditional `{{#userPrompt}}...{{/userPrompt}}` block substitution (`lib/prompt.ts`)
 - Cached taxonomy fetcher — MongoDB aggregation with 5-minute in-memory TTL, formatted string output for prompt injection (`lib/taxonomy.ts`)
