@@ -22,14 +22,17 @@
 - [x] Verification script (`scripts/verify-step2.ts`) for manual end-to-end testing
 - [x] tsc clean, eslint clean
 
-## Step 2.5: Promptfoo setup + prompt evaluation
+## Step 2.5: Promptfoo setup + prompt evaluation [DONE]
 
-- `npx promptfoo@latest init`, configure `promptfooconfig.yaml` with Anthropic provider
-- Version prompt files in `prompts/` directory (image-analysis.txt, reranking.txt)
-- Define 10-15 test cases with furniture images and expected categories/types
-- Assertions: correct category, correct type in top 3, valid JSON output
-- Run `promptfoo eval` → establish baseline metrics (Category Accuracy, Type Accuracy)
-- Iterate on prompts comparing variants in promptfoo dashboard
+- [x] Extracted prompts from `config-store.ts` into `prompts/image-analysis.txt` and `prompts/reranking.txt` — single source of truth for app and eval
+- [x] Modified `config-store.ts` to load defaults via `fs.readFileSync()` from `prompts/*.txt`
+- [x] Installed promptfoo as devDependency, added `eval:setup`, `eval`, `eval:view` npm scripts
+- [x] Setup script (`scripts/setup-promptfoo.ts`) fetches taxonomy from MongoDB and saves as fixture
+- [x] Self-contained custom provider (`promptfoo/providers/image-analysis.ts`) — no `@/lib/` imports
+- [x] 12 test cases (10 furniture + 2 non-furniture) with expected labels matched to live taxonomy
+- [x] 5 assertion metrics: `json-valid`, `schema-valid`, `furniture-detection`, `category-accuracy`, `type-accuracy` + latency/cost bounds
+- [x] `.gitignore` updated for promptfoo output/cache/fixtures
+- [x] tsc clean, eslint clean
 
 ## Step 3: Search pipeline (orchestration)
 

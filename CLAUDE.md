@@ -26,13 +26,16 @@ lib/              — Server-side logic (Claude, MongoDB, config)
 lib/schemas/      — Zod validation schemas (product, search, admin, feedback, api-key, taxonomy)
 lib/models/       — Mongoose models (Product)
 lib/db.ts         — Mongoose connection singleton (globalThis cached)
-lib/config-store.ts — In-memory admin config with default prompts
+lib/config-store.ts — In-memory admin config, loads defaults from prompts/*.txt
+prompts/          — Versioned prompt templates (single source of truth for app + eval)
+promptfoo/        — Evaluation framework: custom provider, test cases, fixtures
 ```
 
 ## Implementation Progress
 
 - **Step 1** [DONE] — Zod schemas, MongoDB connection, Product model, config store
 - **Step 2** [DONE] — Claude service (Vision + Text), prompt renderer, taxonomy cache
+- **Step 2.5** [DONE] — Promptfoo setup, prompt extraction to files, evaluation framework
 - Steps 3–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions

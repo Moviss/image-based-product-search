@@ -45,5 +45,10 @@ next-env.d.ts
 # test images (user-provided, not committed)
 scripts/test-chair.*
 
+# promptfoo
+promptfoo/fixtures/
+promptfoo-output.json
+.promptfoo/
+
 # next-agents-md
 .next-docs/

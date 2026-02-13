@@ -4,11 +4,14 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
-### Added — Step 2.5: Promptfoo Setup + Prompt Evaluation (plan)
-- Implementation plan for offline prompt evaluation with promptfoo (`.ai/step-2.5-plan.md`)
-- Custom TypeScript provider wrapping Claude Vision API for image analysis prompt testing
-- 12 test cases (10 furniture categories + 2 non-furniture) with named metrics: `category-accuracy`, `type-accuracy`, `furniture-detection` — mapped to PRD targets (>85%, >70%, 100%)
-- Single source of truth for prompts: `prompts/*.txt` files loaded by both the app (`config-store.ts` via `fs.readFileSync`) and promptfoo evaluation — eliminates divergence risk from manual sync
+### Added — Step 2.5: Promptfoo Setup + Prompt Evaluation
+- Extracted prompt templates from hardcoded strings in `config-store.ts` into versioned files: `prompts/image-analysis.txt`, `prompts/reranking.txt` — single source of truth for both the app and promptfoo evaluation
+- `config-store.ts` now loads defaults via `fs.readFileSync()` from `prompts/*.txt` at module init
+- Promptfoo evaluation framework with custom TypeScript provider wrapping Claude Vision API
+- Setup script (`scripts/setup-promptfoo.ts`) fetches taxonomy from MongoDB and saves as fixture for offline eval
+- 12 test cases (10 furniture + 2 non-furniture) with expected labels matched to live taxonomy (15 categories, 62 types)
+- 5 named assertion metrics: `json-valid`, `schema-valid`, `furniture-detection`, `category-accuracy`, `type-accuracy` — mapped to PRD targets (>85%, >70%, 100%)
+- npm scripts: `eval:setup` (one-time taxonomy fetch), `eval` (run evaluation), `eval:view` (interactive dashboard)
 
 ### Added — Step 2: Claude Service (Vision + Text)
 - Prompt template renderer with `{{taxonomy}}`, `{{resultsCount}}`, and conditional `{{#userPrompt}}...{{/userPrompt}}` block substitution (`lib/prompt.ts`)

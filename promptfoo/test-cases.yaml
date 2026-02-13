@@ -1,0 +1,105 @@
+# Test cases for image analysis prompt evaluation.
+#
+# The developer must place the corresponding image files in promptfoo/test-images/.
+# Expected category/type values must match the MongoDB taxonomy exactly.
+# Run `npm run eval:setup` to see all valid categories and types.
+
+# --- Furniture images (10 cases) ---
+
+- description: "Modern fabric sofa"
+  vars:
+    image: file://promptfoo/test-images/modern-sofa.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Sofas"
+    expectedType: "Sectional Sofa"
+
+- description: "Wooden dining chair"
+  vars:
+    image: file://promptfoo/test-images/dining-chair.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Chairs"
+    expectedType: "Dining Chair"
+
+- description: "Office desk"
+  vars:
+    image: file://promptfoo/test-images/office-desk.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Desks"
+    expectedType: "Writing Desk"
+
+- description: "King-size bed"
+  vars:
+    image: file://promptfoo/test-images/bed.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Beds"
+    expectedType: "Platform Bed"
+
+- description: "Wooden bookshelf"
+  vars:
+    image: file://promptfoo/test-images/bookshelf.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Bookshelves"
+    expectedType: "Tall Bookshelf"
+
+- description: "Glass coffee table"
+  vars:
+    image: file://promptfoo/test-images/coffee-table.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Coffee Tables"
+    expectedType: "Round Coffee Table"
+
+- description: "Bedside nightstand"
+  vars:
+    image: file://promptfoo/test-images/nightstand.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Nightstands"
+    expectedType: "Two Drawer Nightstand"
+
+- description: "Large wardrobe"
+  vars:
+    image: file://promptfoo/test-images/wardrobe.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Wardrobes"
+    expectedType: "Sliding Door Wardrobe"
+
+- description: "Wooden dining table"
+  vars:
+    image: file://promptfoo/test-images/dining-table.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Tables"
+    expectedType: "Dining Table"
+
+- description: "Leather armchair"
+  vars:
+    image: file://promptfoo/test-images/armchair.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: true
+    expectedCategory: "Chairs"
+    expectedType: "Armchair"
+
+# --- Non-furniture images (2 cases) ---
+
+- description: "Landscape photo (not furniture)"
+  vars:
+    image: file://promptfoo/test-images/landscape.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: false
+    expectedCategory: null
+    expectedType: null
+
+- description: "Car photo (not furniture)"
+  vars:
+    image: file://promptfoo/test-images/car.jpg
+    mimeType: image/jpeg
+    expectedIsFurniture: false
+    expectedCategory: null
+    expectedType: null
