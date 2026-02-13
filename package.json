@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "eval:setup": "npx tsx --env-file=.env.local scripts/setup-promptfoo.ts",
-    "eval": "npx promptfoo eval",
+    "eval": "node --env-file=.env.local node_modules/.bin/promptfoo eval",
     "eval:view": "npx promptfoo view"
   },
   "dependencies": {

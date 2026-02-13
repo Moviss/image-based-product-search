@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
 import type {
   ApiProvider,
@@ -25,17 +27,29 @@ export default class ImageAnalysisProvider implements ApiProvider {
     prompt: string,
     context?: CallApiContextParams
   ): Promise<ProviderResponse> {
-    const imageBase64 = context?.vars?.image as string;
+    const imagePath = context?.vars?.image as string;
     const mimeType =
       (context?.vars?.mimeType as string) || "image/jpeg";
 
-    if (!imageBase64) {
+    if (!imagePath) {
       return { error: "Missing 'image' variable in test case" };
     }
 
     if (!process.env.ANTHROPIC_API_KEY) {
       return { error: "Missing ANTHROPIC_API_KEY environment variable" };
     }
+
+    // Resolve file path: strip file:// prefix if present, resolve relative to cwd
+    const resolved = imagePath.startsWith("file://")
+      ? imagePath.slice(7)
+      : imagePath;
+    const absPath = path.resolve(process.cwd(), resolved);
+
+    if (!fs.existsSync(absPath)) {
+      return { error: `Image file not found: ${absPath}` };
+    }
+
+    const imageBase64 = fs.readFileSync(absPath).toString("base64");
 
     try {
       const client = new Anthropic({
@@ -45,6 +59,7 @@ export default class ImageAnalysisProvider implements ApiProvider {
       const response = await client.messages.create({
         model: this.modelId,
         max_tokens: this.maxTokens,
+        temperature: 0,
         system: prompt,
         messages: [
           {
@@ -70,10 +85,13 @@ export default class ImageAnalysisProvider implements ApiProvider {
         ],
       });
 
-      const text = response.content
+      const raw = response.content
         .filter((block) => block.type === "text")
         .map((block) => block.text)
         .join("");
+
+      // Strip markdown fences (```json ... ```) that Claude sometimes adds
+      const text = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
 
       return {
         output: text,

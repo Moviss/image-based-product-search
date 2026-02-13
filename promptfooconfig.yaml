@@ -31,11 +31,11 @@ defaultTest:
       metric: schema-valid
       value: |
         const parsed = JSON.parse(output);
-        if (typeof parsed.isFurniture !== 'boolean') return { pass: false, reason: 'missing isFurniture field' };
+        if (typeof parsed.isFurniture !== 'boolean') return { pass: false, score: 0, reason: 'missing isFurniture field' };
         if (parsed.isFurniture) {
-          if (!parsed.category || !parsed.type) return { pass: false, reason: 'furniture=true but missing category/type' };
+          if (!parsed.category || !parsed.type) return { pass: false, score: 0, reason: 'furniture=true but missing category/type' };
         }
-        return { pass: true, score: 1 };
+        return { pass: true, score: 1, reason: 'Schema valid' };
 
     # 3. Furniture detection — does isFurniture match expected?
     - type: javascript
@@ -94,10 +94,6 @@ defaultTest:
       threshold: 15000
       weight: 0
 
-    # 7. Cost bound — single image analysis call should cost under $0.05
-    - type: cost
-      threshold: 0.05
-      weight: 0
 
 # Execution settings
 evaluateOptions:

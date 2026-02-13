@@ -58,6 +58,7 @@ export async function analyzeImage(
   const response = await client.messages.create({
     model: MODEL,
     max_tokens: 1024,
+    temperature: 0,
     system: systemPrompt,
     messages: [
       {
@@ -112,6 +113,7 @@ export async function rerankCandidates(
   const response = await client.messages.create({
     model: MODEL,
     max_tokens: 4096,
+    temperature: 0,
     system: systemPrompt,
     messages: [
       {

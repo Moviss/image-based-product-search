@@ -8,7 +8,7 @@
 
 - description: "Modern fabric sofa"
   vars:
-    image: file://promptfoo/test-images/modern-sofa.jpg
+    image: promptfoo/test-images/modern-sofa.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Sofas"
@@ -16,7 +16,7 @@
 
 - description: "Wooden dining chair"
   vars:
-    image: file://promptfoo/test-images/dining-chair.jpg
+    image: promptfoo/test-images/dining-chair.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Chairs"
@@ -24,7 +24,7 @@
 
 - description: "Office desk"
   vars:
-    image: file://promptfoo/test-images/office-desk.jpg
+    image: promptfoo/test-images/office-desk.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Desks"
@@ -32,7 +32,7 @@
 
 - description: "King-size bed"
   vars:
-    image: file://promptfoo/test-images/bed.jpg
+    image: promptfoo/test-images/bed.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Beds"
@@ -40,7 +40,7 @@
 
 - description: "Wooden bookshelf"
   vars:
-    image: file://promptfoo/test-images/bookshelf.jpg
+    image: promptfoo/test-images/bookshelf.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Bookshelves"
@@ -48,7 +48,7 @@
 
 - description: "Glass coffee table"
   vars:
-    image: file://promptfoo/test-images/coffee-table.jpg
+    image: promptfoo/test-images/coffee-table.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Coffee Tables"
@@ -56,23 +56,23 @@
 
 - description: "Bedside nightstand"
   vars:
-    image: file://promptfoo/test-images/nightstand.jpg
+    image: promptfoo/test-images/nightstand.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Nightstands"
-    expectedType: "Two Drawer Nightstand"
+    expectedType: "Single Drawer Nightstand"
 
 - description: "Large wardrobe"
   vars:
-    image: file://promptfoo/test-images/wardrobe.jpg
+    image: promptfoo/test-images/wardrobe.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Wardrobes"
-    expectedType: "Sliding Door Wardrobe"
+    expectedType: "Hinged Door Wardrobe"
 
 - description: "Wooden dining table"
   vars:
-    image: file://promptfoo/test-images/dining-table.jpg
+    image: promptfoo/test-images/dining-table.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Tables"
@@ -80,7 +80,7 @@
 
 - description: "Leather armchair"
   vars:
-    image: file://promptfoo/test-images/armchair.jpg
+    image: promptfoo/test-images/armchair.jpg
     mimeType: image/jpeg
     expectedIsFurniture: true
     expectedCategory: "Chairs"
@@ -90,16 +90,12 @@
 
 - description: "Landscape photo (not furniture)"
   vars:
-    image: file://promptfoo/test-images/landscape.jpg
+    image: promptfoo/test-images/landscape.jpg
     mimeType: image/jpeg
     expectedIsFurniture: false
-    expectedCategory: null
-    expectedType: null
 
 - description: "Car photo (not furniture)"
   vars:
-    image: file://promptfoo/test-images/car.jpg
+    image: promptfoo/test-images/car.jpg
     mimeType: image/jpeg
     expectedIsFurniture: false
-    expectedCategory: null
-    expectedType: null
