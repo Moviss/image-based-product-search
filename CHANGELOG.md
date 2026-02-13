@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. Particular 
 ### Added
 - Next.js 16.1.6 project scaffold via `create-next-app` (TypeScript, Tailwind CSS 4, ESLint 9, App Router, Turbopack)
 - shadcn/ui (new-york style, lucide icons) with `cn()` utility
-- Core dependencies: Zod 3, Mongoose 9, @anthropic-ai/sdk
+- Core dependencies: Zod 4, Mongoose 9, @anthropic-ai/sdk
 - CLAUDE.md with project-specific conventions, tech stack reference, and auto-generated Next.js 16 docs index via `@next/codemod agents-md`
 - Implementation plan (.ai/implementation-plan.md) — 10-step dependency-ordered build sequence with promptfoo integration and prompt injection defense strategy
 
@@ -23,7 +23,7 @@ Decision: Migrate to Next.js 16 (App Router). This eliminates the monorepo overh
 
 - Replaced Vite 7 + React Router 7 with Next.js 16.1 (App Router, file-based routing)
 - Replaced Express 5 + Multer 2 backend with Next.js API Route Handlers (in-memory FormData)
-- Added Zod 3 for runtime input validation at all API boundaries (RF-033)
+- Added Zod 4 for runtime input validation at all API boundaries (RF-033)
 - Replaced monorepo structure (`/client`, `/server`, `/shared`) with single Next.js project (`/app`, `/components`, `/lib`, `/lib/schemas`)
 - Updated PRD references: RF-002, RF-006, RF-031, RF-032; added RF-033
 - Kept: React 19, TypeScript 5.9, Tailwind CSS 4, shadcn/ui, Mongoose 9, @anthropic-ai/sdk

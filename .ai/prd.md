@@ -11,7 +11,7 @@ Tech stack:
 - UI: shadcn/ui + Tailwind CSS 4
 - Database: MongoDB Atlas (read-only) via Mongoose 9
 - AI: Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk
-- Validation: Zod 3 for runtime input validation and type inference
+- Validation: Zod 4 for runtime input validation and type inference
 - Upload: Next.js Route Handlers with in-memory FormData processing
 
 ## 2. User Problem

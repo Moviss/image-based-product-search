@@ -14,7 +14,7 @@ Upload a furniture image, get ranked matches from a ~2,500 product MongoDB catal
 - **Tailwind CSS 4** (CSS-first config, no tailwind.config.js) + **shadcn/ui** (new-york style)
 - **Mongoose 9** for MongoDB Atlas (read-only)
 - **@anthropic-ai/sdk** for Claude API (Vision + Text)
-- **Zod 3** for runtime input validation
+- **Zod 4** for runtime input validation (docs: https://zod.dev/)
 
 ## Project Structure
 
@@ -32,7 +32,7 @@ lib/schemas/      — Zod validation schemas
 - **App Router only** — no Pages Router, no `getServerSideProps`
 - **Tailwind CSS 4** — CSS-first configuration via `app/globals.css`, no `tailwind.config.js`, no `@apply`
 - **shadcn/ui components** live in `components/ui/`, add via `npx shadcn@latest add <component>`
-- **Zod schemas** define API contracts — use `z.infer<typeof schema>` for type derivation
+- **Zod 4 schemas** define API contracts — use `z.infer<typeof schema>` for type derivation, use `{ error: "..." }` for custom error messages (Zod 4 pattern)
 - **API key** is never persisted — client stores in React state, passes via request headers
 - **MongoDB is read-only** — never modify data or indexes
 - **In-memory state** for admin config and feedback — acceptable for MVP, lost on restart

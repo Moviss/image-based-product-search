@@ -7,7 +7,7 @@
 - TypeScript 5.9 for static typing across the entire codebase (single project, no separate configs)
 - Tailwind CSS 4 for utility-first styling with CSS-first configuration and improved performance
 - shadcn/ui as the component library — accessible, customizable React components built on Radix UI
-- Zod 3 for runtime input validation and type inference — validates API requests (search, config, feedback), file uploads, and environment inputs
+- Zod 4 for runtime input validation and type inference — validates API requests (search, config, feedback), file uploads, and environment inputs (docs: https://zod.dev/)
 
 ## Database — MongoDB Atlas (Read-Only)
 

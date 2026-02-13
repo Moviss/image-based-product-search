@@ -50,7 +50,7 @@ A full-stack application that lets users upload an image of a furniture item and
 |---|---|
 | Framework | Next.js 16 (App Router) + React 19 + TypeScript |
 | UI | shadcn/ui + Tailwind CSS 4 |
-| Validation | Zod 3 (runtime input validation + type inference) |
+| Validation | Zod 4 (runtime input validation + type inference) |
 | Database | MongoDB Atlas (read-only, pre-populated) via Mongoose 9 |
 | AI | Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk |
 | Upload | Next.js Route Handlers (in-memory FormData) |
