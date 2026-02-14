@@ -44,8 +44,15 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 
 - **Commits**: conventional commits — `type(scope): description`, explain why not what
 - **App Router only** — no Pages Router, no `getServerSideProps`
-- **Tailwind CSS 4** — CSS-first configuration via `app/globals.css`, no `tailwind.config.js`, no `@apply`
-- **shadcn/ui components** live in `components/ui/`, add via `npx shadcn@latest add <component>`
+- **Tailwind CSS 4** — CSS-first configuration via `app/globals.css`, no `tailwind.config.js`, no `@apply`. Key v4 differences from v3:
+  - Use `@import "tailwindcss"` (not `@tailwind base/components/utilities`)
+  - Use `@theme` blocks in CSS for design tokens (not JS config `theme.extend`)
+  - Use `@utility name { ... }` for custom utilities (not `@layer utilities`)
+  - Use `@variant` / `@custom-variant` for custom variants (not `darkMode: 'class'` in JS)
+  - Arbitrary CSS vars require explicit `var()`: `bg-[var(--my-color)]` (not `bg-[--my-color]`)
+  - `ring` needs explicit width: `ring-3` (not bare `ring`)
+  - Shadow scale shifted: v3 `shadow` = v4 `shadow-sm`, v3 `shadow-md` = v4 `shadow`
+- **shadcn/ui components** live in `components/ui/`, add via `npx shadcn@latest add <component>`. MCP server configured in `.mcp.json` for browsing/installing components
 - **Zod 4 schemas** define API contracts — use `z.infer<typeof schema>` for type derivation, use `{ error: "..." }` for custom error messages (Zod 4 pattern)
 - **API key** is never persisted — client stores in React state, passes via request headers
 - **MongoDB is read-only** — never modify data or indexes
