@@ -36,12 +36,16 @@
 - [x] Baseline: 12/12 (100%), deterministic with `--repeat 3`
 - [x] tsc clean, eslint clean
 
-## Step 3: Search pipeline (orchestration)
+## Step 3: Search pipeline (orchestration) [DONE]
 
-- Cascading MongoDB query: type match → category match → broader query, capped at 50 candidates
-- Pipeline orchestration: analyze image → query MongoDB → re-rank → return results
-- Two-phase architecture: streaming response (ReadableStream in Route Handler) — first chunk after image analysis + MongoDB (~1-2s), second chunk after re-ranking (~3-5s)
-- Verify: call pipeline with test image, check two-phase output with sensible results
+- [x] `lib/search-pipeline.ts` — two-phase orchestration module
+- [x] `SearchInput` + `SearchPhase1Result` (discriminated union on `isFurniture`) types
+- [x] `toProduct()` — converts Mongoose `.lean()` document (ObjectId → string `_id`)
+- [x] `findCandidates()` — cascading MongoDB query: type match → category match (excluding type) → broad fallback ($nin seen IDs), capped at `maxCandidates`; handles null type/category edge cases
+- [x] `searchPhase1()` — `analyzeImage` + `findCandidates`, returns discriminated union
+- [x] `searchPhase2()` — thin wrapper on `rerankCandidates`
+- [x] Verification script (`scripts/verify-step3.ts`): furniture image (50 candidates, cascading confirmed), re-ranking (6 scored results, sorted desc), non-furniture edge case
+- [x] tsc clean, eslint clean
 
 ## Step 4: API Route Handlers
 

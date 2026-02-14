@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 3: Search Pipeline (Orchestration)
+- Two-phase search pipeline (`lib/search-pipeline.ts`) — orchestrates image analysis, candidate retrieval, and re-ranking without HTTP concerns
+- `searchPhase1()` — calls Claude Vision `analyzeImage`, returns discriminated union (`isFurniture: true` with candidates, or `isFurniture: false`)
+- `searchPhase2()` — thin wrapper on `rerankCandidates` for consistent pipeline interface
+- Cascading MongoDB query (`findCandidates`): Level 1 exact type match → Level 2 same category excluding type → Level 3 broad fallback excluding seen IDs; handles null type/category edge cases
+- `toProduct()` helper converts Mongoose `.lean()` documents (ObjectId) to `Product` type (string `_id`)
+- Verification script (`scripts/verify-step3.ts`) — tests both phases + non-furniture edge case end-to-end
+
 ### Added — Step 2.5: Promptfoo Setup + Prompt Evaluation
 - Extracted prompt templates from hardcoded strings in `config-store.ts` into versioned files: `prompts/image-analysis.txt`, `prompts/reranking.txt` — single source of truth for both the app and promptfoo evaluation
 - `config-store.ts` now loads defaults via `fs.readFileSync()` from `prompts/*.txt` at module init
