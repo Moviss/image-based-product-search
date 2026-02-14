@@ -42,7 +42,8 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 - **Step 5** [DONE] — App shell: root layout, header with navigation, API key context + gate
 - **Step 6** [DONE] — API Key UI: shadcn components (button, input, card, label), polished form with validation
 - **Step 7** [DONE] — Search UI: image upload (drag-and-drop + file picker), NDJSON stream hook, two-phase result display, responsive result grid
-- Steps 8–10 — pending (see `.ai/implementation-plan.md`)
+- **Step 8** [DONE] — Admin panel: prompt editors, config sliders, taxonomy display, save/discard with dirty tracking
+- Steps 9–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
 

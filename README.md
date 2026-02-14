@@ -90,11 +90,13 @@ The application runs on `http://localhost:3000`.
 ### Admin Panel
 
 Navigate to `/admin` to configure:
-- System prompts for image analysis and re-ranking
-- Number of displayed results (3-12)
-- Maximum candidates for re-ranking
-- Minimum relevance score threshold
-- View product taxonomy (categories and types)
+- **System prompts** for image analysis and re-ranking (monospace textareas with template variable hints)
+- **Number of displayed results** (3–12) — slider control
+- **Maximum candidates** for re-ranking (10–100) — slider control
+- **Score threshold** (0–100) — slider control, results below are marked low-relevance
+- **Product taxonomy** — expandable list of 15 categories and 63 types (read-only, fetched from MongoDB)
+
+Changes take effect immediately after save (no server restart required). Config is stored in-memory and resets on server restart.
 
 ## Evaluation Approach
 

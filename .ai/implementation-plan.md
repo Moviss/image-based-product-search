@@ -47,31 +47,32 @@
 - [x] Verification script (`scripts/verify-step3.ts`): furniture image (50 candidates, cascading confirmed), re-ranking (6 scored results, sorted desc), non-furniture edge case
 - [x] tsc clean, eslint clean
 
-## Step 4: API Route Handlers
+## Step 4: API Route Handlers [DONE]
 
-- `POST /api/key` — validate Anthropic API key
-- `POST /api/search` — image upload (FormData) + optional prompt, returns streaming results
-- `GET /api/admin/config` — read current configuration
-- `PUT /api/admin/config` — update configuration (immediate apply)
-- `GET /api/admin/taxonomy` — categories and types from MongoDB
-- `POST /api/feedback` — save thumbs up/down rating (in-memory store)
-- All inputs validated with Zod at the boundary (file type/size, prompt length max 500 chars, config ranges, API key format)
-- Verify: curl each endpoint, confirm validation rejects bad inputs
+- [x] `POST /api/key` — validate Anthropic API key
+- [x] `POST /api/search` — image upload (FormData) + optional prompt, returns streaming results
+- [x] `GET /api/admin/config` — read current configuration
+- [x] `PUT /api/admin/config` — update configuration (immediate apply)
+- [x] `GET /api/admin/taxonomy` — categories and types from MongoDB
+- [x] `POST /api/feedback` — save thumbs up/down rating (in-memory store)
+- [x] All inputs validated with Zod at the boundary (file type/size, prompt length max 500 chars, config ranges, API key format)
+- [x] Verification script (`scripts/verify-step4.ts`) — 12 end-to-end tests covering all endpoints
+- [x] tsc clean, eslint clean
 
-## Step 5: App shell — layout, navigation, API key context
+## Step 5: App shell — layout, navigation, API key context [DONE]
 
-- Root layout with header and nav links (/ ↔ /admin)
-- React Context for API key (client-side memory, passed via headers per-request)
-- Gate: block access to search/admin without valid key
-- Verify: navigation works, context preserves key between pages
+- [x] Root layout with header and nav links (/ ↔ /admin)
+- [x] React Context for API key (client-side memory, passed via headers per-request)
+- [x] Gate: block access to search/admin without valid key
+- [x] tsc clean, eslint clean
 
-## Step 6: API key UI
+## Step 6: API key UI [DONE]
 
-- Entry form with validation via `POST /api/key`
-- Redirect to search on success
-- Error messages for invalid key
-- Option to change/clear key
-- Verify: enter key → validate → access search; bad key → error message
+- [x] Entry form with validation via `POST /api/key`
+- [x] Redirect to search on success
+- [x] Error messages for invalid key
+- [x] Option to change/clear key
+- [x] tsc clean, eslint clean
 
 ## Step 7: Search UI (main feature) [DONE]
 
@@ -84,13 +85,16 @@
 - [x] shadcn components added: badge, textarea, alert
 - [x] tsc clean, eslint clean, 17 manual test scenarios passed
 
-## Step 8: Admin panel
+## Step 8: Admin panel [DONE]
 
-- System prompt editors (image analysis + re-ranking) with non-empty validation
-- Numeric controls: results count (3-12), max candidates (10-100), score threshold (0-100)
-- Taxonomy display: categories with expandable type lists, fetched from MongoDB
-- Save with immediate apply (no restart)
-- Verify: change prompt in admin → new search reflects different behavior
+- [x] shadcn `slider` component installed via CLI
+- [x] `app/admin/page.tsx` — async Server Component fetching config (`getConfig`) and taxonomy (`getTaxonomy`), passes as props to client orchestrator; uses `await connection()` for dynamic rendering
+- [x] `components/admin-panel.tsx` — Client Component orchestrator: `useState<AdminConfig>` for form + server baseline, field-by-field dirty tracking, save via `PUT /api/admin/config`, discard, inline success/error messages (auto-clear 3s)
+- [x] `components/prompt-editor.tsx` — labeled `Textarea` (monospace, rows=10) for system prompt editing (used 2x: image analysis + re-ranking)
+- [x] `components/config-controls.tsx` — three labeled `Slider` controls: resultsCount (3–12, step 1), maxCandidates (10–100, step 5), scoreThreshold (0–100, step 1); `tabular-nums` value display
+- [x] `components/taxonomy-display.tsx` — native `<details>`/`<summary>` expandable list with chevron rotation (`group-open:rotate-90`), category count, type tags; empty-state fallback for MongoDB unavailability
+- [x] `lib/config-store.ts` — migrated from module-level `let` to `globalThis.__adminConfig` to survive Next.js dev module re-evaluations (same pattern as `lib/db.ts`)
+- [x] tsc clean, eslint clean, 15 manual test scenarios passed
 
 ## Step 9: Feedback (thumbs up/down)
 

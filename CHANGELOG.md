@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 8: Admin Panel
+- Admin panel orchestrator (`components/admin-panel.tsx`) — `"use client"` component with `useState<AdminConfig>` for form state + server baseline, field-by-field dirty tracking (`isDirty`), non-empty prompt validation (`isValid`), save via `PUT /api/admin/config` with inline success/error messages (success auto-clears after 3s), discard button to revert unsaved changes
+- Prompt editor component (`components/prompt-editor.tsx`) — reusable labeled `Textarea` with monospace font (`font-mono text-sm`), `rows={10}`, used for both image analysis and re-ranking prompts; descriptions list supported template variables (`{{taxonomy}}`, `{{resultsCount}}`, `{{#userPrompt}}`)
+- Config controls component (`components/config-controls.tsx`) — data-driven rendering of three shadcn `Slider` controls: results count (3–12, step 1), max candidates (10–100, step 5), score threshold (0–100, step 1); `tabular-nums` value display for stable digit width
+- Taxonomy display component (`components/taxonomy-display.tsx`) — native `<details>`/`<summary>` expandable list, chevron rotation via `group-open:rotate-90`, summary line with category/type counts, type tags as styled `<span>` elements; graceful fallback message when MongoDB is unavailable
+- shadcn/ui component added: `slider`
+
+### Changed — Step 8
+- `app/admin/page.tsx` — replaced placeholder with async Server Component that calls `getConfig()` and `getTaxonomy()` directly, passing results as props to `AdminPanel`; uses `await connection()` from `next/server` to ensure dynamic rendering on every navigation
+- `lib/config-store.ts` — migrated from module-level `let config` to `globalThis.__adminConfig` to survive Next.js dev-server module re-evaluations; same pattern as `lib/db.ts` uses for Mongoose connection caching
+
 ### Added — Step 7: Search UI (Main Feature)
 - Custom search hook (`hooks/use-search.ts`) — `useReducer` state machine with 6 statuses (idle → analyzing → ranking → done / error / not-furniture), async NDJSON stream reader via `ReadableStream.getReader()`, `AbortController` for cancellation on new search
 - Image upload component (`components/image-upload.tsx`) — drag-and-drop (native HTML5 API with `dragCounter` ref for flicker prevention) + file picker, `FileWithPreview` value/onChange API (blob URL created/revoked in event handlers, no useEffect), client-side MIME type and 10 MB size validation, preview via `next/image` (unoptimized for blob URLs)
