@@ -96,13 +96,14 @@
 - [x] `lib/config-store.ts` — migrated from module-level `let` to `globalThis.__adminConfig` to survive Next.js dev module re-evaluations (same pattern as `lib/db.ts`)
 - [x] tsc clean, eslint clean, 15 manual test scenarios passed
 
-## Step 9: Feedback (thumbs up/down)
+## Step 9: Feedback (thumbs up/down) [DONE]
 
-- Thumbs up/down buttons on result cards
-- Visual state change on click
-- `POST /api/feedback` to server
-- In-memory store per session
-- Verify: click → icon changes → data persisted in server memory
+- [x] `lib/feedback-store.ts` — migrated from module-level `Map` to `globalThis.__feedbackStore` pattern (same fix as config-store in Step 8)
+- [x] `components/result-card.tsx` — added `CardFooter` with ThumbsUp/ThumbsDown ghost buttons, optional `currentRating`/`onFeedback` props, `aria-pressed`/`aria-label` accessibility, `flex-1` on CardContent for consistent footer alignment
+- [x] `components/result-grid.tsx` — threaded `feedback` record and `onFeedback` handler to ResultCard in "done" status
+- [x] `components/search-page.tsx` — `useState<Record<string, "up" | "down">>` for feedback, `useCallback` handler with optimistic update + fire-and-forget POST, reset in `handleNewSearch`
+- [x] `components/api-key-form.tsx` — added `data-1p-ignore` and `autoComplete="off"` to suppress 1Password autofill triggers
+- [x] tsc clean, eslint clean, 12 manual test scenarios passed
 
 ## Step 10: Edge cases, error handling, polish + red teaming
 
