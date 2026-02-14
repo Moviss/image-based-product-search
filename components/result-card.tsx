@@ -4,13 +4,18 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
+  CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ThumbsUp, ThumbsDown } from "lucide-react";
 import type { Product, ScoredProduct } from "@/lib/schemas";
 
 interface ResultCardProps {
   product: Product | ScoredProduct;
   scoreThreshold?: number;
+  currentRating?: "up" | "down" | null;
+  onFeedback?: (productId: string, rating: "up" | "down") => void;
 }
 
 function isScored(product: Product | ScoredProduct): product is ScoredProduct {
@@ -32,7 +37,12 @@ function scoreBadgeVariant(
   return "destructive";
 }
 
-export function ResultCard({ product, scoreThreshold = 0 }: ResultCardProps) {
+export function ResultCard({
+  product,
+  scoreThreshold = 0,
+  currentRating = null,
+  onFeedback,
+}: ResultCardProps) {
   const scored = isScored(product);
   const lowRelevance = scored && product.score < scoreThreshold;
 
@@ -53,7 +63,7 @@ export function ResultCard({ product, scoreThreshold = 0 }: ResultCardProps) {
           )}
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="flex-1 space-y-2">
         <p className="text-sm font-medium">
           {priceFormat.format(product.price)}
         </p>
@@ -69,6 +79,40 @@ export function ResultCard({ product, scoreThreshold = 0 }: ResultCardProps) {
           <p className="text-xs text-destructive">Low relevance match</p>
         )}
       </CardContent>
+      {scored && onFeedback && (
+        <CardFooter className="justify-end gap-1 border-t">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => onFeedback(product._id, "up")}
+            aria-pressed={currentRating === "up"}
+            aria-label="Rate as relevant"
+          >
+            <ThumbsUp
+              className={
+                currentRating === "up"
+                  ? "text-emerald-600"
+                  : "text-muted-foreground"
+              }
+            />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => onFeedback(product._id, "down")}
+            aria-pressed={currentRating === "down"}
+            aria-label="Rate as not relevant"
+          >
+            <ThumbsDown
+              className={
+                currentRating === "down"
+                  ? "text-destructive"
+                  : "text-muted-foreground"
+              }
+            />
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 }

@@ -18,6 +18,7 @@ export function SearchPage() {
 
   const [fileState, setFileState] = useState<FileWithPreview | null>(null);
   const [prompt, setPrompt] = useState("");
+  const [feedback, setFeedback] = useState<Record<string, "up" | "down">>({});
 
   const isSearching = status === "analyzing" || status === "ranking";
   const hasResults =
@@ -28,6 +29,21 @@ export function SearchPage() {
     search(fileState.file, prompt.trim() || undefined);
   }, [fileState, prompt, search]);
 
+  const handleFeedback = useCallback(
+    (productId: string, rating: "up" | "down") => {
+      setFeedback((prev) => ({ ...prev, [productId]: rating }));
+
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId, rating }),
+      }).catch(() => {
+        // Silently ignore — feedback is non-critical (in-memory, lost on restart)
+      });
+    },
+    [],
+  );
+
   const handleNewSearch = useCallback(() => {
     reset();
     if (fileState) {
@@ -35,6 +51,7 @@ export function SearchPage() {
       setFileState(null);
     }
     setPrompt("");
+    setFeedback({});
   }, [reset, fileState]);
 
   const handleRetry = useCallback(() => {
@@ -99,6 +116,8 @@ export function SearchPage() {
         scoreThreshold={scoreThreshold}
         error={error}
         onRetry={handleRetry}
+        feedback={feedback}
+        onFeedback={handleFeedback}
       />
     </div>
   );

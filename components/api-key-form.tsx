@@ -77,7 +77,7 @@ export function ApiKeyForm({ onValidated }: ApiKeyFormProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" data-1p-ignore>
             <div className="flex flex-col gap-2">
               <Label htmlFor="apiKey">API Key</Label>
               <Input
@@ -88,6 +88,8 @@ export function ApiKeyForm({ onValidated }: ApiKeyFormProps) {
                 placeholder="sk-ant-..."
                 disabled={isLoading}
                 autoFocus
+                autoComplete="off"
+                data-1p-ignore
                 aria-invalid={!!error}
                 aria-describedby={error ? errorId : undefined}
               />

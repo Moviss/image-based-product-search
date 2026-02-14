@@ -6,6 +6,8 @@ import type { SearchState } from "@/hooks/use-search";
 
 interface ResultGridProps extends SearchState {
   onRetry: () => void;
+  feedback: Record<string, "up" | "down">;
+  onFeedback: (productId: string, rating: "up" | "down") => void;
 }
 
 export function ResultGrid({
@@ -15,6 +17,8 @@ export function ResultGrid({
   scoreThreshold,
   error,
   onRetry,
+  feedback,
+  onFeedback,
 }: ResultGridProps) {
   if (status === "idle") return null;
 
@@ -106,6 +110,8 @@ export function ResultGrid({
             key={product._id}
             product={product}
             scoreThreshold={scoreThreshold}
+            currentRating={feedback[product._id] ?? null}
+            onFeedback={onFeedback}
           />
         ))}
       </div>
