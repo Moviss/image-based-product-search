@@ -105,13 +105,18 @@
 - [x] `components/api-key-form.tsx` — added `data-1p-ignore` and `autoComplete="off"` to suppress 1Password autofill triggers
 - [x] tsc clean, eslint clean, 12 manual test scenarios passed
 
-## Step 9.5: Product Detail Dialog
+## Step 9.5: Product Detail Dialog [DONE]
 
-- Product cards truncate title (`line-clamp-1`) and description (`line-clamp-2`) for grid consistency
-- Clicking a result card opens a Dialog/modal showing full product details: title, description, price, dimensions, score, justification
-- Preserves compact card grid while giving users access to complete information for result quality assessment
-- Uses shadcn Dialog component (needs install if not present)
-- No new pages or routes — modal overlay within the search page
+- [x] shadcn Dialog component installed (`components/ui/dialog.tsx`)
+- [x] `components/result-card.tsx` — wrapped Card in `Dialog` + `DialogTrigger asChild`, entire card clickable to open modal
+- [x] `DialogContent` shows full untruncated product details: title, description, category, type, price, dimensions, score badge, AI justification
+- [x] `stopPropagation` on feedback buttons (`onClick` + `onKeyDown`) prevents dialog opening on thumbs up/down
+- [x] Card justification truncated to `line-clamp-2` for consistent grid card heights (full text in dialog)
+- [x] Card visual affordance: `cursor-pointer`, `hover:shadow`, `transition-shadow`, `focus-visible:ring-3`
+- [x] Keyboard accessibility: `role="button"`, `tabIndex={0}`, `onKeyDown` Enter/Space → `click()` (native `<div>` doesn't fire click on keyboard activation)
+- [x] Low-relevance products render at full opacity inside dialog with "Low relevance" indicator
+- [x] Phase 1 candidates (unscored) also open dialog without score/justification sections
+- [x] tsc clean, eslint clean, 14 manual test scenarios passed
 
 ## Step 10: Edge cases, error handling, polish + red teaming
 

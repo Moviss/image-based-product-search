@@ -86,7 +86,8 @@ The application runs on `http://localhost:3000`.
 3. Upload a furniture image (drag-and-drop or file picker, with instant format/size validation)
 4. Optionally add a text query to refine results (e.g., "darker wood, budget under $500")
 5. Watch two-phase results: preliminary candidates appear first, then scored results with match badges and AI justifications
-6. Rate results with thumbs up/down — feedback is sent to the server for quality tracking
+6. Click any result card to view full product details in a modal (title, description, category, type, price, dimensions, match score, AI justification)
+7. Rate results with thumbs up/down — feedback is sent to the server for quality tracking
 
 ### Admin Panel
 

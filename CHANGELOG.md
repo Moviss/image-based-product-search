@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 9.5: Product Detail Dialog
+- Clicking any result card opens a shadcn Dialog (modal) showing full, untruncated product details: title, description, category, type, price, dimensions, match score badge, and AI justification
+- Card visual affordance: `cursor-pointer`, `hover:shadow` elevation, `transition-shadow`, `focus-visible:ring-3` keyboard focus ring
+- Keyboard accessible: `role="button"`, `tabIndex={0}`, Enter/Space opens dialog (manual `onKeyDown` handler since native `<div>` doesn't fire click on keyboard activation)
+- Feedback button isolation: `stopPropagation` on both `onClick` and `onKeyDown` prevents thumbs up/down from opening the dialog
+- Card justification truncated to `line-clamp-2` for consistent grid card heights; full justification visible in dialog
+- Phase 1 candidates (unscored) also open dialog showing product details without score/justification sections
+- Low-relevance products render at full opacity inside dialog with "Low relevance" indicator text
+- shadcn/ui component added: `dialog`
+
+### Added — Step 9: Feedback UI (Thumbs Up/Down)
+- Thumbs up/down ghost buttons on scored result cards (`components/result-card.tsx`) with `aria-pressed`/`aria-label` accessibility, color-coded active state (emerald for up, destructive for down)
+- Optimistic feedback state in `components/search-page.tsx` — `useState<Record<string, "up" | "down">>` with fire-and-forget `POST /api/feedback`, reset on new search
+- Feedback props threaded through `components/result-grid.tsx` to `ResultCard` for "done" status only
+
+### Changed — Step 9
+- `lib/feedback-store.ts` — migrated from module-level `Map` to `globalThis.__feedbackStore` to survive Next.js dev-server module re-evaluations
+- `components/api-key-form.tsx` — added `data-1p-ignore` and `autoComplete="off"` to suppress 1Password autofill triggers
+
 ### Added — Step 8: Admin Panel
 - Admin panel orchestrator (`components/admin-panel.tsx`) — `"use client"` component with `useState<AdminConfig>` for form state + server baseline, field-by-field dirty tracking (`isDirty`), non-empty prompt validation (`isValid`), save via `PUT /api/admin/config` with inline success/error messages (success auto-clears after 3s), discard button to revert unsaved changes
 - Prompt editor component (`components/prompt-editor.tsx`) — reusable labeled `Textarea` with monospace font (`font-mono text-sm`), `rows={10}`, used for both image analysis and re-ranking prompts; descriptions list supported template variables (`{{taxonomy}}`, `{{resultsCount}}`, `{{#userPrompt}}`)

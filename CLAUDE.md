@@ -44,6 +44,7 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 - **Step 7** [DONE] — Search UI: image upload (drag-and-drop + file picker), NDJSON stream hook, two-phase result display, responsive result grid
 - **Step 8** [DONE] — Admin panel: prompt editors, config sliders, taxonomy display, save/discard with dirty tracking
 - **Step 9** [DONE] — Feedback UI: thumbs up/down on scored result cards, optimistic updates, feedback store globalThis fix
+- **Step 9.5** [DONE] — Product detail dialog: click card to view full details (title, description, category, type, price, dimensions, score, justification) in modal
 - Step 10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
