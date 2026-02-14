@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 5: App Shell (Layout, Navigation, API Key Context)
+- API key context (`components/api-key-provider.tsx`) — React Context + `useApiKey` hook holding the Anthropic key in `useState` only (lost on refresh per RF-002), exposes `setApiKey`/`clearApiKey`
+- Header with navigation (`components/header.tsx`) — branded "Furniture Search" title, `Search`/`Admin` nav links with active styling via `usePathname()`, "Change API Key" button (visible when key is set)
+- API key gate (`components/api-key-gate.tsx`) — blocks page content until a valid key is provided; inline form validates via `POST /api/key` before accepting; shows loading/error states
+- Updated root layout (`app/layout.tsx`) — Server Component composing `ApiKeyProvider > Header + ApiKeyGate > {children}`; updated metadata title/description
+- Search page placeholder (`app/page.tsx`) — replaces default Next.js welcome page with placeholder for Step 7
+- Admin page placeholder (`app/admin/page.tsx`) — creates `/admin` route with placeholder for Step 8
+
 ### Added — Step 4: API Route Handlers
 - Shared error-to-HTTP mapper (`lib/api-error.ts`) — maps Anthropic SDK errors (401, 429, 502, 504), MongoDB connection errors (503), and Claude response parse failures (502) to consistent `{ status, message }` pairs
 - In-memory feedback store (`lib/feedback-store.ts`) — `Map<productId, rating>` with aggregate counts, satisfies US-023 without a separate endpoint

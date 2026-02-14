@@ -38,7 +38,8 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 - **Step 2.5** [DONE] — Promptfoo setup, prompt extraction to files, evaluation framework
 - **Step 3** [DONE] — Search pipeline: cascading MongoDB query, two-phase orchestration
 - **Step 4** [DONE] — API Route Handlers: 6 endpoints, NDJSON streaming, error mapping, feedback store
-- Steps 5–10 — pending (see `.ai/implementation-plan.md`)
+- **Step 5** [DONE] — App shell: root layout, header with navigation, API key context + gate
+- Steps 6–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
 

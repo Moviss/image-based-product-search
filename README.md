@@ -82,7 +82,7 @@ The application runs on `http://localhost:3000`.
 ### Usage
 
 1. Open the app in your browser
-2. Enter your Anthropic API key
+2. Enter your Anthropic API key (validated on submit, stored in memory only — lost on refresh)
 3. Upload a furniture image
 4. Optionally add a text query to refine results (e.g., "darker wood, budget under $500")
 5. Browse ranked results with match scores and AI justifications

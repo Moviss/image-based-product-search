@@ -1,14 +1,14 @@
-export default function SearchPage() {
+export default function AdminPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-semibold tracking-tight">
-        Image-Based Product Search
+        Admin Panel
       </h1>
       <p className="text-muted-foreground">
-        Upload a furniture image to find matching products from the catalog.
+        Configure search parameters and system prompts.
       </p>
       <div className="rounded-lg border border-dashed border-border p-12 text-center text-sm text-muted-foreground">
-        Image upload and search results will be displayed here.
+        System prompt editors, parameter controls, and taxonomy display will be here.
       </div>
     </div>
   );
