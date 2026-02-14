@@ -83,9 +83,9 @@ The application runs on `http://localhost:3000`.
 
 1. Open the app in your browser
 2. Enter your Anthropic API key in the card form (client-side format check + server validation, stored in memory only — lost on refresh)
-3. Upload a furniture image
+3. Upload a furniture image (drag-and-drop or file picker, with instant format/size validation)
 4. Optionally add a text query to refine results (e.g., "darker wood, budget under $500")
-5. Browse ranked results with match scores and AI justifications
+5. Watch two-phase results: preliminary candidates appear first, then scored results with match badges and AI justifications
 
 ### Admin Panel
 

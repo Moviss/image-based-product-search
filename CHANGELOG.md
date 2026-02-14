@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 7: Search UI (Main Feature)
+- Custom search hook (`hooks/use-search.ts`) — `useReducer` state machine with 6 statuses (idle → analyzing → ranking → done / error / not-furniture), async NDJSON stream reader via `ReadableStream.getReader()`, `AbortController` for cancellation on new search
+- Image upload component (`components/image-upload.tsx`) — drag-and-drop (native HTML5 API with `dragCounter` ref for flicker prevention) + file picker, `FileWithPreview` value/onChange API (blob URL created/revoked in event handlers, no useEffect), client-side MIME type and 10 MB size validation, preview via `next/image` (unoptimized for blob URLs)
+- Result card component (`components/result-card.tsx`) — renders both `Product` (candidate mode) and `ScoredProduct` (scored mode) via type guard, color-coded score Badge (green ≥70, neutral ≥threshold, destructive below), low-relevance cards with `opacity-60` + "Low relevance match" label
+- Result grid component (`components/result-grid.tsx`) — status-driven rendering: Loader2 spinner during analysis/ranking, Alert with retry button on error, Info alert for not-furniture, responsive grid (`sm:grid-cols-2 lg:grid-cols-3`), preliminary candidate cards shown during ranking phase
+- Search page orchestrator (`components/search-page.tsx`) — `"use client"` component connecting `useApiKey` + `useSearch` hooks, `ImageUpload`, `Textarea` with character counter (500 max), Search/New Search buttons with loading state
+- shadcn/ui components added: `badge`, `textarea`, `alert`
+
+### Changed — Step 7
+- `app/page.tsx` — replaced Step 5 placeholder with `<SearchPage />` import (remains a Server Component)
+
 ### Added — Step 6: API Key UI (shadcn/ui Components)
 - shadcn/ui foundation components installed via CLI: `button`, `input`, `card`, `label` (`components/ui/`)
 - Polished API key form (`components/api-key-form.tsx`) — Card container with title and privacy reassurance copy, Label + Input (type=password, autoFocus), client-side `sk-ant-` prefix validation before API call, Loader2 spinner during server validation, inline error display with `text-destructive`, full accessibility (aria-invalid, aria-describedby, htmlFor)

@@ -73,16 +73,16 @@
 - Option to change/clear key
 - Verify: enter key → validate → access search; bad key → error message
 
-## Step 7: Search UI (main feature)
+## Step 7: Search UI (main feature) [DONE]
 
-- Drag-and-drop upload area + file picker with image preview
-- Client-side validation: format (JPEG/PNG/WebP), size (max 10 MB)
-- Optional text prompt input
-- "Search" button with staged progress messages ("Analyzing image...", "Searching catalog...", "Ranking results...")
-- Two-phase display: show MongoDB results first, replace with re-ranked results
-- Responsive grid 2x3 (adapts 375px–1920px)
-- Result cards: title, description, price, dimensions, match score %, AI justification
-- Verify: full end-to-end upload → analysis → two-phase results
+- [x] `hooks/use-search.ts` — `useReducer` state machine (6 statuses), NDJSON stream reader, AbortController for cancellation
+- [x] `components/image-upload.tsx` — drag-and-drop + file picker, `FileWithPreview` value/onChange API, client-side MIME/size validation, preview with `next/image`
+- [x] `components/result-card.tsx` — Product/ScoredProduct card with score Badge (color-coded: green ≥70, neutral ≥threshold, destructive below), low-relevance styling
+- [x] `components/result-grid.tsx` — status-driven rendering: spinner, alerts (not-furniture, error with retry), responsive grid (`sm:grid-cols-2 lg:grid-cols-3`), preliminary results during ranking
+- [x] `components/search-page.tsx` — client component orchestrator, connects `useApiKey` + `useSearch` + `ImageUpload` + `Textarea` (with character counter)
+- [x] `app/page.tsx` — replaced placeholder with `<SearchPage />`
+- [x] shadcn components added: badge, textarea, alert
+- [x] tsc clean, eslint clean, 17 manual test scenarios passed
 
 ## Step 8: Admin panel
 

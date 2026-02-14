@@ -1,15 +1,5 @@
-export default function SearchPage() {
-  return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-semibold tracking-tight">
-        Image-Based Product Search
-      </h1>
-      <p className="text-muted-foreground">
-        Upload a furniture image to find matching products from the catalog.
-      </p>
-      <div className="rounded-lg border border-dashed border-border p-12 text-center text-sm text-muted-foreground">
-        Image upload and search results will be displayed here.
-      </div>
-    </div>
-  );
+import { SearchPage } from "@/components/search-page";
+
+export default function Page() {
+  return <SearchPage />;
 }

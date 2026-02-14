@@ -22,6 +22,7 @@ Upload a furniture image, get ranked matches from a ~2,500 product MongoDB catal
 app/              — Pages, layouts, API route handlers
 app/api/          — Route Handlers (~6 endpoints)
 components/       — React components (ui/ for shadcn)
+hooks/            — Custom React hooks (use-search)
 lib/              — Server-side logic (Claude, MongoDB, config)
 lib/schemas/      — Zod validation schemas (product, search, admin, feedback, api-key, taxonomy)
 lib/models/       — Mongoose models (Product)
@@ -40,7 +41,8 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 - **Step 4** [DONE] — API Route Handlers: 6 endpoints, NDJSON streaming, error mapping, feedback store
 - **Step 5** [DONE] — App shell: root layout, header with navigation, API key context + gate
 - **Step 6** [DONE] — API Key UI: shadcn components (button, input, card, label), polished form with validation
-- Steps 7–10 — pending (see `.ai/implementation-plan.md`)
+- **Step 7** [DONE] — Search UI: image upload (drag-and-drop + file picker), NDJSON stream hook, two-phase result display, responsive result grid
+- Steps 8–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
 
