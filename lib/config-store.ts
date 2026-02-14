@@ -12,8 +12,7 @@ const DEFAULT_RERANKING_PROMPT = fs.readFileSync(
   "utf-8"
 );
 
-/** Module-level mutable config — persists within the Node.js process lifetime. */
-let config: AdminConfig = {
+const DEFAULT_CONFIG: AdminConfig = {
   imageAnalysisPrompt: DEFAULT_IMAGE_ANALYSIS_PROMPT,
   rerankingPrompt: DEFAULT_RERANKING_PROMPT,
   resultsCount: 6,
@@ -21,9 +20,18 @@ let config: AdminConfig = {
   scoreThreshold: 0,
 };
 
+/**
+ * Cache config on globalThis to survive Next.js dev-server module
+ * re-evaluations (same pattern as lib/db.ts for Mongoose connection).
+ */
+const g = globalThis as typeof globalThis & { __adminConfig?: AdminConfig };
+if (!g.__adminConfig) {
+  g.__adminConfig = { ...DEFAULT_CONFIG };
+}
+
 /** Returns a shallow copy of the current config (prevents external mutation). */
 export function getConfig(): AdminConfig {
-  return { ...config };
+  return { ...g.__adminConfig! };
 }
 
 /**
@@ -32,6 +40,6 @@ export function getConfig(): AdminConfig {
  * with `AdminConfigSchema.parse()` before calling this.
  */
 export function updateConfig(updates: Partial<AdminConfig>): AdminConfig {
-  config = { ...config, ...updates };
-  return { ...config };
+  g.__adminConfig = { ...g.__adminConfig!, ...updates };
+  return { ...g.__adminConfig };
 }
