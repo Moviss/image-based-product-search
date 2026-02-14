@@ -105,6 +105,14 @@
 - [x] `components/api-key-form.tsx` — added `data-1p-ignore` and `autoComplete="off"` to suppress 1Password autofill triggers
 - [x] tsc clean, eslint clean, 12 manual test scenarios passed
 
+## Step 9.5: Product Detail Dialog
+
+- Product cards truncate title (`line-clamp-1`) and description (`line-clamp-2`) for grid consistency
+- Clicking a result card opens a Dialog/modal showing full product details: title, description, price, dimensions, score, justification
+- Preserves compact card grid while giving users access to complete information for result quality assessment
+- Uses shadcn Dialog component (needs install if not present)
+- No new pages or routes — modal overlay within the search page
+
 ## Step 10: Edge cases, error handling, polish + red teaming
 
 - "Not-furniture" classification → "No furniture detected in the image" message
