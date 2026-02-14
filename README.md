@@ -53,6 +53,7 @@ A full-stack application that lets users upload an image of a furniture item and
 | Validation | Zod 4 (runtime input validation + type inference) |
 | Database | MongoDB Atlas (read-only, pre-populated) via Mongoose 9 |
 | AI | Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk |
+| Streaming | NDJSON over `ReadableStream` (two-phase search results) |
 | Upload | Next.js Route Handlers (in-memory FormData) |
 
 ## Getting Started

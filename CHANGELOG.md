@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 4: API Route Handlers
+- Shared error-to-HTTP mapper (`lib/api-error.ts`) — maps Anthropic SDK errors (401, 429, 502, 504), MongoDB connection errors (503), and Claude response parse failures (502) to consistent `{ status, message }` pairs
+- In-memory feedback store (`lib/feedback-store.ts`) — `Map<productId, rating>` with aggregate counts, satisfies US-023 without a separate endpoint
+- `POST /api/key` — validates Anthropic API key via minimal Claude call, returns `{ valid: true/false }` (not HTTP error for invalid keys)
+- `POST /api/search` — two-phase NDJSON streaming: accepts FormData (image + optional prompt), validates file type/size/prompt length, streams `candidates` then `results` chunks (or `not-furniture` / `error`); API key via `X-API-Key` header
+- `GET /api/admin/config` — returns full `AdminConfig` from in-memory store
+- `PUT /api/admin/config` — partial updates via `AdminConfigSchema.partial().safeParse()`, rejects empty updates and out-of-range values
+- `GET /api/admin/taxonomy` — returns `TaxonomyCategory[]` from MongoDB with 5-minute cache
+- `POST /api/feedback` — stores thumbs up/down rating, returns `{ success, counts: { up, down } }`
+- Verification script (`scripts/verify-step4.ts`) — 12 end-to-end tests covering all endpoints, validation rejections, streaming protocol, and config round-trips
+
 ### Added — Step 3: Search Pipeline (Orchestration)
 - Two-phase search pipeline (`lib/search-pipeline.ts`) — orchestrates image analysis, candidate retrieval, and re-ranking without HTTP concerns
 - `searchPhase1()` — calls Claude Vision `analyzeImage`, returns discriminated union (`isFurniture: true` with candidates, or `isFurniture: false`)

@@ -37,7 +37,8 @@ promptfoo/        — Evaluation framework: custom provider, test cases, fixture
 - **Step 2** [DONE] — Claude service (Vision + Text), prompt renderer, taxonomy cache
 - **Step 2.5** [DONE] — Promptfoo setup, prompt extraction to files, evaluation framework
 - **Step 3** [DONE] — Search pipeline: cascading MongoDB query, two-phase orchestration
-- Steps 4–10 — pending (see `.ai/implementation-plan.md`)
+- **Step 4** [DONE] — API Route Handlers: 6 endpoints, NDJSON streaming, error mapping, feedback store
+- Steps 5–10 — pending (see `.ai/implementation-plan.md`)
 
 ## Key Conventions
 
