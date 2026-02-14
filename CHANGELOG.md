@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. Particular 
 
 ## [Unreleased]
 
+### Added — Step 6: API Key UI (shadcn/ui Components)
+- shadcn/ui foundation components installed via CLI: `button`, `input`, `card`, `label` (`components/ui/`)
+- Polished API key form (`components/api-key-form.tsx`) — Card container with title and privacy reassurance copy, Label + Input (type=password, autoFocus), client-side `sk-ant-` prefix validation before API call, Loader2 spinner during server validation, inline error display with `text-destructive`, full accessibility (aria-invalid, aria-describedby, htmlFor)
+- Header "Change API Key" button upgraded to shadcn `Button` (ghost variant, size sm) for design system consistency
+
+### Changed — Step 6
+- Extracted inline `ApiKeyPrompt` from `api-key-gate.tsx` into dedicated `api-key-form.tsx` — gate is now 12 lines (pure structural component, no UI logic)
+
 ### Added — Step 5: App Shell (Layout, Navigation, API Key Context)
 - API key context (`components/api-key-provider.tsx`) — React Context + `useApiKey` hook holding the Anthropic key in `useState` only (lost on refresh per RF-002), exposes `setApiKey`/`clearApiKey`
 - Header with navigation (`components/header.tsx`) — branded "Furniture Search" title, `Search`/`Admin` nav links with active styling via `usePathname()`, "Change API Key" button (visible when key is set)

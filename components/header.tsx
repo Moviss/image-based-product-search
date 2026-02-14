@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useApiKey } from "@/components/api-key-provider";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
   const pathname = usePathname();
@@ -39,12 +40,9 @@ export function Header() {
           </nav>
         </div>
         {apiKey && (
-          <button
-            onClick={clearApiKey}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
+          <Button variant="ghost" size="sm" onClick={clearApiKey}>
             Change API Key
-          </button>
+          </Button>
         )}
       </div>
     </header>
