@@ -118,7 +118,7 @@
 - [x] Phase 1 candidates (unscored) also open dialog without score/justification sections
 - [x] tsc clean, eslint clean, 14 manual test scenarios passed
 
-## Step 10: Edge cases, error handling, polish + red teaming [IN PROGRESS]
+## Step 10: Edge cases, error handling, polish + red teaming [DONE]
 
 - [x] "Not-furniture" classification → "No furniture detected" message (done in Steps 4+7)
 - [x] Low-relevance indicators when results below score threshold (done in Step 7)
@@ -128,4 +128,4 @@
 - [x] Responsive verification across breakpoints (done in Step 7)
 - [x] Promptfoo red team: adversarial user prompt testing (10 cases, 7 metrics, 10/10 pass)
 - [x] Reranking prompt hardened via iterative red teaming (concrete factual verification examples, score independence rule)
-- [ ] Finalize README and CHANGELOG (v1.0.0)
+- [x] Finalized README and CHANGELOG (v1.0.0)
