@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#18181b"/>
+  <!-- Magnifying glass lens -->
+  <circle cx="26" cy="26" r="14" stroke="white" stroke-width="3" fill="none"/>
+  <!-- Magnifying glass handle -->
+  <line x1="36" y1="36" x2="50" y2="50" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <!-- Armchair silhouette inside lens -->
+  <path d="M18,31 L18,25 L20,25 L20,22 Q26,18 32,22 L32,25 L34,25 L34,31 Z" fill="white"/>
+</svg>

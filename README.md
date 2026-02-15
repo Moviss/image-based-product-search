@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="app/icon.svg" alt="Furniture Search" width="80">
+</p>
+
 # Image-Based Product Search
 
 A full-stack application that lets users upload an image of a furniture item and receive relevant matches from a product catalog, optionally refined by a natural-language query.
