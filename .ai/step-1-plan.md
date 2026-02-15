@@ -47,7 +47,7 @@ Existing files (no changes):
 **File:** `.env.local`
 
 ```
-MONGODB_URI=mongodb+srv://catalog-readonly:vcRvxWHQSKUEwd7V@catalog.sontifs.mongodb.net/catalog
+MONGODB_URI=mongodb+srv://<username>:<password>@catalog.sontifs.mongodb.net/catalog
 ```
 
 **File:** `.gitignore` — verify `.env*.local` is already listed (it should be from `create-next-app`).

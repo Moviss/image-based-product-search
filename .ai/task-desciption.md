@@ -11,7 +11,7 @@ You are encouraged to use AI coding tools; ownership of the final result and all
 Connect to the pre-populated database using the following **read-only** connection string:
 
 ```
-mongodb+srv://catalog-readonly:vcRvxWHQSKUEwd7V@catalog.sontifs.mongodb.net/catalog
+mongodb+srv://<username>:<password>@catalog.sontifs.mongodb.net/catalog
 ```
 
 Use the `products` collection. Each document has the following schema:
