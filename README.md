@@ -73,6 +73,9 @@ cd image-based-product-search
 # Install dependencies
 npm install
 
+# Copy environment template and fill in your values
+cp .env.example .env.local
+
 # Start development server
 npm run dev
 ```
@@ -124,6 +127,8 @@ The project uses [promptfoo](https://www.promptfoo.dev/) for offline evaluation 
 - Baseline: 10/10 (100%)
 
 **Running evaluations:**
+
+Evaluations require `ANTHROPIC_API_KEY` in `.env.local` (see `.env.example`). The application itself does not use this variable — it receives the API key at runtime via the UI.
 
 ```bash
 # One-time setup: fetch taxonomy + candidate fixtures from MongoDB
