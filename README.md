@@ -156,6 +156,10 @@ The reranking prompt (`prompts/reranking.txt`) was iteratively hardened through 
 
 Key insight: more concrete examples of correct reasoning improved both injection resistance and factual accuracy simultaneously — the model needs to see what "checking against data" looks like in practice, not just be told to do it.
 
+## Development Process
+
+This project was built in 10 dependency-ordered steps, planned and executed with an AI coding agent. The `.ai/` directory contains the full planning artifacts: PRD with functional requirements and 24 user stories, tech stack analysis, and detailed implementation plans for each build step. The `CHANGELOG.md` documents key decisions and the corresponding agent prompts that drove them.
+
 ## Future Enhancements
 
 - **Result caching**: Cache image analysis results and MongoDB queries to reduce API costs and latency for repeated/similar searches

@@ -151,7 +151,35 @@ Decision: Migrate to Next.js 16 (App Router). This eliminates the monorepo overh
 - Initial README with architecture overview, design rationale, and setup instructions
 - This CHANGELOG
 
+### PRD Creation Process
+
+The PRD was created through a structured multi-turn conversation with Claude, acting as a product manager. The process consisted of four prompts:
+
+**Prompt 1 — PRD analysis and question generation:**
+
+_"You are an experienced product manager tasked with helping create a comprehensive PRD based on the provided project description. Analyze the information focusing on: (1) the main problem the product solves, (2) key MVP functionalities, (3) potential user stories, (4) success criteria and measurement, (5) project constraints. Generate 10 combined questions + recommendations covering user problem details, feature prioritization, expected UX, measurable success metrics, risks, and timeline. Continue generating new questions based on answers until the user requests a summary."_
+
+**Prompt 2 — Round 1 answers with database exploration data:**
+
+Accepted all recommendations. Provided detailed catalog analysis: 2,500 products, 15 categories (Beds through Wardrobes), 63 types, price range $29.99–$4,969.99, even distribution (~153–187 per category, ~32–57 per type), sample document schema. This data informed the cascading query strategy and taxonomy enum design.
+
+**Prompt 3 — Round 2 answers (10 implementation questions):**
+
+Accepted all recommendations with one modification: chose shadcn/ui + Tailwind CSS for styling (recommended Vite + React confirmed). Key decisions locked: Express + TypeScript backend, single Claude call with enums, cascading MongoDB query, batch re-ranking with scores, top 6 results in 2x3 grid, React Router (`/` and `/admin`), dual evaluation (PromptFoo offline + thumbs up/down online), multer in-memory upload, `/client` + `/server` + `/shared` project structure.
+
+**Prompt 4 — Structured summary generation:**
+
+_"Summarize the PRD planning conversation for the MVP. Match model recommendations to user answers. Prepare a detailed summary including: main functional requirements, key user stories and usage paths, success criteria with measurement methods, unresolved issues. Format as: decisions, matched recommendations, PRD planning summary, unresolved issues."_
+
+Output: 20 numbered decisions, 10 matched recommendations, success criteria table (Category Accuracy >85%, Type Accuracy >70%, Precision@6 >60%, satisfaction >70% positive, response time <8s), and 5 unresolved issues (test image sourcing, rate limiting, config/feedback persistence, shared types strategy) — all fed into the final PRD document.
+
 ### Design Decisions
+
+**Step 10 planning — audit-first approach to the final MVP step**
+
+Prompt to agent: _"Plan Step 10 (edge cases, error handling, polish + red teaming) in detail. CRITICAL: Before planning, audit the actual code for each of the 8 planned items — read components/result-grid.tsx, hooks/use-search.ts, app/api/search/route.ts, lib/api-error.ts, lib/claude.ts and others. For each item give a DONE/PARTIAL/TODO verdict with code references. Plan ONLY items that are PARTIAL or TODO. For red teaming: check if promptfoo redteam is available in the installed version, research configuration, and design adversarial test cases for the user prompt injection surface. Each section must be self-contained so it can be implemented independently. Follow the step-9-plan.md structure."_
+
+Decision: The audit revealed that 6 of 8 items were already fully implemented across Steps 4–9.5 (not-furniture classification, low-relevance indicators, API error handling with retry, MongoDB connection errors, server-side file validation, responsive grid). Only two items remained: promptfoo adversarial evaluation (new reranking provider + 10 injection test cases) and documentation finalization. The audit-first approach prevented unnecessary rework and kept Step 10 focused on genuine gaps.
 
 **Search architecture — multi-stage pipeline over vector search**
 
@@ -170,3 +198,15 @@ Rather than a single broad query, the system tries exact type match first (~40 p
 **In-memory storage for MVP**
 
 Admin configuration and user feedback are stored in server memory. This avoids additional infrastructure (no extra database, no file I/O) and is acceptable for a demo/evaluation context where the server runs continuously. Documented as a known limitation with a clear upgrade path (JSON file or lightweight DB).
+
+**Implementation order — dependency graph analysis**
+
+Prompt to agent: _"Derive an implementation sequence from the PRD by analyzing the dependency graph between components. Determine which layers must exist before others can be built — e.g., should API endpoints come first, or do they depend on underlying services? Establish a step-by-step order that minimizes rework and blocked work."_
+
+Decision: Backend-first, dependency-ordered 10-step plan. The key insight was building the riskiest components (Claude prompt integration, search pipeline orchestration) early — before any UI — so they can be tested in isolation via scripts and iterated on without frontend overhead. The resulting order: (1) Zod schemas + MongoDB + config store → (2) Claude service → (2.5) promptfoo eval → (3) search pipeline → (4) API route handlers → (5-9) UI layers in dependency order → (10) edge cases and red teaming. Each step produces testable output before the next begins.
+
+**Promptfoo integration timing and prompt injection defense**
+
+Prompt to agent: _"Remember the assumption to use promptfoo for prompt testing and versioning — review the current documentation and determine when to introduce this tool in the implementation plan. Also consider basic protection of the optional user prompt against malicious attacks and attempts to change model behavior."_
+
+Decision: Introduce promptfoo as Step 2.5 — immediately after writing the Claude service (Step 2) and before closing the search pipeline (Step 3). This timing allows iterating on prompt quality with measurable metrics before the pipeline locks in the prompt contract. Prompt injection defense uses a 3-layer approach: (1) Zod validation at API boundary (max length, sanitization), (2) architectural separation in Claude messages — user prompt passed as data, not instructions, with explicit system prompt guard, (3) promptfoo red team adversarial testing in Step 10 to verify resilience.
