@@ -48,6 +48,7 @@ scripts/test-chair.*
 # promptfoo
 promptfoo/fixtures/
 promptfoo-output.json
+promptfoo-redteam-output.json
 .promptfoo/
 
 # next-agents-md

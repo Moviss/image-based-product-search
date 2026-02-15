@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file. Particular focus is given to the search functionality and its implementation.
 
-## [Unreleased]
+## [1.0.0] - 2026-02-14
+
+### Added — Step 10: Edge Cases, Error Handling, Polish + Red Teaming
+- Promptfoo adversarial evaluation for reranking prompt (`promptfoo/redteam-config.yaml`): 10 test cases targeting user prompt injection (direct override, score manipulation, template escape, context switching, system prompt extraction)
+- Self-contained reranking provider (`promptfoo/providers/reranking.ts`) — renders prompt template with adversarial user prompt, sends to Claude with reference image + candidate fixture
+- Candidate fixture generation in setup script (`scripts/setup-promptfoo.ts`) — fetches diverse products from MongoDB (one per category) for reproducible reranking evaluation
+- npm script `eval:redteam` — runs adversarial evaluation separately from classification accuracy
+- 7 assertion metrics for injection resistance: `json-valid`, `schema-valid`, `no-hallucinated-ids`, `scores-in-range`, `score-variance`, `no-prompt-leak`, latency bound
+
+### Changed — Step 10
+- Reranking prompt (`prompts/reranking.txt`) iteratively hardened through red team testing — added structured scoring rules, concrete examples of correct factual verification (price, color, material, dimensions, shape), score independence rule to prevent manipulation. See README "Prompt Hardening via Red Team Iteration" for the full process
+- README expanded with detailed evaluation section covering both promptfoo suites, setup instructions, and prompt hardening narrative
+- CHANGELOG finalized with version 1.0.0
 
 ### Added — Step 9.5: Product Detail Dialog
 - Clicking any result card opens a shadcn Dialog (modal) showing full, untruncated product details: title, description, category, type, price, dimensions, match score badge, and AI justification

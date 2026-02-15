@@ -2,6 +2,7 @@
   "name": "image-based-product-search",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,7 @@
     "lint": "eslint",
     "eval:setup": "npx tsx --env-file=.env.local scripts/setup-promptfoo.ts",
     "eval": "node --env-file=.env.local node_modules/.bin/promptfoo eval",
+    "eval:redteam": "node --env-file=.env.local node_modules/.bin/promptfoo eval -c promptfoo/redteam-config.yaml",
     "eval:view": "npx promptfoo view"
   },
   "dependencies": {

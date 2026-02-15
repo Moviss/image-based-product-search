@@ -10,6 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { connectDB } from "@/lib/db";
 import { getTaxonomyString, getTaxonomy } from "@/lib/taxonomy";
+import { Product as ProductModel } from "@/lib/models/product";
 import mongoose from "mongoose";
 
 async function main() {
@@ -35,14 +36,43 @@ async function main() {
   );
   console.log(`    -> promptfoo/fixtures/taxonomy.txt`);
 
-  // 3. Print taxonomy for test case reference
+  // 3. Fetch candidate fixture for reranking red team
+  console.log("\nFetching candidate products for reranking evaluation...");
+  const candidateDocs = await ProductModel.aggregate([
+    { $group: { _id: "$category", doc: { $first: "$$ROOT" } } },
+    { $replaceRoot: { newRoot: "$doc" } },
+    { $limit: 10 },
+  ]);
+
+  const candidates = candidateDocs.map((doc: Record<string, unknown>) => ({
+    _id: String(doc._id),
+    title: doc.title as string,
+    description: doc.description as string,
+    category: doc.category as string,
+    type: doc.type as string,
+    price: doc.price as number,
+    width: doc.width as number,
+    height: doc.height as number,
+    depth: doc.depth as number,
+  }));
+
+  fs.writeFileSync(
+    path.join(fixturesDir, "candidates.json"),
+    JSON.stringify(candidates, null, 2)
+  );
+  console.log(
+    `  Candidates saved: ${candidates.length} products`
+  );
+  console.log(`    -> promptfoo/fixtures/candidates.json`);
+
+  // 5. Print taxonomy for test case reference
   console.log("\nAvailable categories and types (for test case labeling):");
   for (const entry of taxonomy) {
     console.log(`  ${entry.category}:`);
     console.log(`    ${entry.types.join(", ")}`);
   }
 
-  // 4. Check test images directory
+  // 6. Check test images directory
   const imagesDir = path.join(root, "promptfoo", "test-images");
   fs.mkdirSync(imagesDir, { recursive: true });
 

@@ -118,13 +118,14 @@
 - [x] Phase 1 candidates (unscored) also open dialog without score/justification sections
 - [x] tsc clean, eslint clean, 14 manual test scenarios passed
 
-## Step 10: Edge cases, error handling, polish + red teaming
+## Step 10: Edge cases, error handling, polish + red teaming [IN PROGRESS]
 
-- "Not-furniture" classification → "No furniture detected in the image" message
-- Low-relevance indicators when results below score threshold
-- API errors: 401 (key issue), 429 (rate limit), 500/timeout (service issue) with retry option
-- MongoDB connection error → "catalog unavailable" message
-- Server-side file validation (format, size) as second line of defense
-- Responsive verification across breakpoints
-- `promptfoo redteam` — test adversarial user prompts against injection
-- Finalize README and CHANGELOG
+- [x] "Not-furniture" classification → "No furniture detected" message (done in Steps 4+7)
+- [x] Low-relevance indicators when results below score threshold (done in Step 7)
+- [x] API errors: 401, 429, 500/timeout with retry option (done in Steps 4+7)
+- [x] MongoDB connection error → "catalog unavailable" (done in Step 4)
+- [x] Server-side file validation (format, size) (done in Step 4)
+- [x] Responsive verification across breakpoints (done in Step 7)
+- [x] Promptfoo red team: adversarial user prompt testing (10 cases, 7 metrics, 10/10 pass)
+- [x] Reranking prompt hardened via iterative red teaming (concrete factual verification examples, score independence rule)
+- [ ] Finalize README and CHANGELOG (v1.0.0)
