@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. Particular focus is given to the search functionality and its implementation.
 
+## [Unreleased]
+### Added
+- Local MongoDB development environment via Docker Compose (`docker-compose.yml`, `data/mongo-init.sh`) to mimic production state and isolate development data.
+- Global application context guidelines extracted to `GEMINI.md`.
+
+### Changed
+- App icon (`app/icon.svg`) fundamentally redesigned from a generic placeholder to a highly polished, scalable, modern armchair-in-lens graphic with custom gradients.
+- Search state persistence: migrated local React state inside `search-page.tsx` to a global Zustand store (`lib/store/search-store.ts`). State no longer drops when navigating between Search and Admin views. Performance during NDJSON streaming significantly improved.
+
 ## [1.0.0] - 2026-02-14
 
 ### Added — Step 10: Edge Cases, Error Handling, Polish + Red Teaming
