@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: product_search_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./data:/docker-entrypoint-initdb.d/data
+      - ./data/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+    environment:
+      - MONGO_INITDB_DATABASE=product_search
+
+volumes:
+  mongodb_data:

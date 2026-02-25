@@ -55,7 +55,7 @@ A full-stack application that lets users upload an image of a furniture item and
 | Framework | Next.js 16 (App Router) + React 19 + TypeScript |
 | UI | shadcn/ui + Tailwind CSS 4 |
 | Validation | Zod 4 (runtime input validation + type inference) |
-| Database | MongoDB Atlas (read-only, pre-populated) via Mongoose 9 |
+| Database | Local MongoDB via Docker (seeded with catalog data) via Mongoose 9 |
 | AI | Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk |
 | Streaming | NDJSON over `ReadableStream` (two-phase search results) |
 | Upload | Next.js Route Handlers (in-memory FormData) |
@@ -64,7 +64,8 @@ A full-stack application that lets users upload an image of a furniture item and
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 24+ (LTS recommended)
+- Docker Desktop (or equivalent, such as OrbStack)
 - An Anthropic API key (entered at runtime in the UI)
 
 ### Installation
@@ -76,6 +77,10 @@ cd image-based-product-search
 
 # Install dependencies
 npm install
+
+# Build and start the local MongoDB container (seeds database on first run)
+chmod +x data/mongo-init.sh
+docker compose up -d
 
 # Copy environment template and fill in your values
 cp .env.example .env.local
@@ -107,14 +112,32 @@ Navigate to `/admin` to configure:
 
 Changes take effect immediately after save (no server restart required). Config is stored in-memory and resets on server restart.
 
+## CI/CD Pipeline
+
+The project includes a foundational GitHub Actions workflow (`.github/workflows/ci.yml`) that runs automatically on every `push` and `pull_request` to the `main` branch. 
+
+This pipeline enforces code quality and prevents regressions by running:
+1. **ESLint** (`npm run lint`) for code style and best practices.
+2. **TypeScript Compiler** (`npx tsc --noEmit`) for static type checking.
+3. **Vitest** (`npm run test`) to ensure core unit tests pass.
+4. **Next.js Build** (`npm run build`) to verify the application compiles successfully for production.
+
 ## Evaluation Approach
 
 ### Online (Runtime)
 - Thumbs up/down buttons on each result card
 - Aggregated satisfaction ratio tracked per session (accessible via `POST /api/feedback` response)
 
-### Offline (promptfoo Test Suite)
+### Offline (Unit Tests & promptfoo)
 
+The project relies on two distinct testing suites to ensure both deterministic logic and AI prompt quality:
+
+**Unit Testing** (`npm run test`):
+- Powered by Vitest for fast, pure-logic Next.js function testing.
+- Specs currently cover critical pure functions like `api-error.ts` (ensuring we map Anthropic/DB errors to safe HTTP statuses) and `prompt.ts` (ensuring variables properly interpolate into strings).
+- Ran on every Push/PR via GitHub Actions.
+
+**AI Evaluation Suite** (`promptfoo`):
 The project uses [promptfoo](https://www.promptfoo.dev/) for offline evaluation of prompt quality across two independent suites.
 
 **Image Analysis Accuracy** (`npm run eval`):
@@ -137,6 +160,9 @@ Evaluations require `ANTHROPIC_API_KEY` in `.env.local` (see `.env.example`). Th
 ```bash
 # One-time setup: fetch taxonomy + candidate fixtures from MongoDB
 npm run eval:setup
+
+# Run Vitest unit tests
+npm run test
 
 # Run image analysis accuracy evaluation
 npm run eval
