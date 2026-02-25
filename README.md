@@ -64,7 +64,7 @@ A full-stack application that lets users upload an image of a furniture item and
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 24+ (LTS recommended)
 - Docker Desktop (or equivalent, such as OrbStack)
 - An Anthropic API key (entered at runtime in the UI)
 
