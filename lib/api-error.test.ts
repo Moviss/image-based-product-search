@@ -4,7 +4,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 describe('api-error mapper', () => {
     it('maps Anthropic AuthenticationError to 401', () => {
-        // @ts-ignore - patching the constructor to simulate the error instance
+        // @ts-expect-error - patching the constructor to simulate the error instance
         const error = new Anthropic.AuthenticationError(401, {}, 'Invalid API key', undefined);
         const result = mapApiError(error);
         expect(result.status).toBe(401);
@@ -12,7 +12,7 @@ describe('api-error mapper', () => {
     });
 
     it('maps Anthropic RateLimitError to 429', () => {
-        // @ts-ignore - patching the constructor to simulate the error instance
+        // @ts-expect-error - patching the constructor to simulate the error instance
         const error = new Anthropic.RateLimitError(429, {}, 'Slow down', undefined);
         const result = mapApiError(error);
         expect(result.status).toBe(429);
