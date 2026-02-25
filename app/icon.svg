@@ -1,9 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#18181b"/>
-  <!-- Magnifying glass lens -->
-  <circle cx="26" cy="26" r="14" stroke="white" stroke-width="3" fill="none"/>
-  <!-- Magnifying glass handle -->
-  <line x1="36" y1="36" x2="50" y2="50" stroke="white" stroke-width="4" stroke-linecap="round"/>
-  <!-- Armchair silhouette inside lens -->
-  <path d="M18,31 L18,25 L20,25 L20,22 Q26,18 32,22 L32,25 L34,25 L34,31 Z" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Minimalist premium dark background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle glowing spotlight in the center behind everything -->
+  <circle cx="216" cy="216" r="280" fill="url(#spotlight)" />
+
+  <!-- The Magnifying Glass -->
+  <circle cx="216" cy="216" r="132" stroke="url(#glassRing)" stroke-width="24" />
+  
+  <!-- Glass Handle -->
+  <path d="M 310 310 L 416 416" stroke="url(#glassRing)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Elegant Armchair Silhouette inside the glass -->
+  <!-- Backrest -->
+  <path d="M 168 216 L 168 152 C 168 136 180 124 196 124 L 236 124 C 252 124 264 136 264 152 L 264 216" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Armrests -->
+  <path d="M 148 184 L 148 216 M 284 184 L 284 216" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Seat Cushion -->
+  <rect x="140" y="216" width="152" height="32" rx="12" fill="#ffffff"/>
+  <!-- Legs -->
+  <path d="M 168 256 L 168 280 M 264 256 L 264 280" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Subtle 'scanning' line across the glass to represent search/analysis -->
+  <line x1="84" y1="216" x2="348" y2="216" stroke="url(#scanLine)" stroke-width="4" stroke-linecap="round" />
+
+  <defs>
+    <!-- Background Gradient: Deep dark zinc to pitch black -->
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#09090b"/>
+      <stop offset="1" stop-color="#18181b"/>
+    </linearGradient>
+    
+    <!-- Spotlight glowing effect -->
+    <radialGradient id="spotlight" cx="0.5" cy="0.5" r="0.5">
+      <stop stop-color="rgba(99, 102, 241, 0.12)"/>
+      <stop offset="1" stop-color="rgba(99, 102, 241, 0)"/>
+    </radialGradient>
+    
+    <!-- Glass Ring Gradient for metallic/sleek look -->
+    <linearGradient id="glassRing" x1="84" y1="84" x2="348" y2="348" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8fafc"/>
+      <stop offset="0.6" stop-color="#94a3b8"/>
+      <stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    
+    <!-- Scanline Gradient for tech/AI representation -->
+    <linearGradient id="scanLine" x1="84" y1="216" x2="348" y2="216" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(129, 140, 248, 0)"/>
+      <stop offset="0.5" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="rgba(129, 140, 248, 0)"/>
+    </linearGradient>
+  </defs>
 </svg>
