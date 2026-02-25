@@ -12,6 +12,7 @@ describe('api-error mapper', () => {
     });
 
     it('maps Anthropic RateLimitError to 429', () => {
+        // @ts-ignore - patching the constructor to simulate the error instance
         const error = new Anthropic.RateLimitError(429, {}, 'Slow down', undefined);
         const result = mapApiError(error);
         expect(result.status).toBe(429);
