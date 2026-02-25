@@ -34,3 +34,5 @@ jobs:
 
     - name: Verify Build
       run: npm run build
+      env:
+        MONGODB_URI: mongodb://localhost:27017/dummy_build_db
