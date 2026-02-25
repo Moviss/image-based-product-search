@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { Loader2 } from "lucide-react";
 import { useApiKey } from "@/components/api-key-provider";
-import { useSearch } from "@/hooks/use-search";
-import { ImageUpload, type FileWithPreview } from "@/components/image-upload";
+import { useSearchStore } from "@/lib/store/search-store";
+import { ImageUpload } from "@/components/image-upload";
 import { ResultGrid } from "@/components/result-grid";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,51 +13,24 @@ import { MAX_PROMPT_LENGTH } from "@/lib/schemas";
 
 export function SearchPage() {
   const { apiKey } = useApiKey();
-  const { status, analysis, candidates, results, scoreThreshold, error, search, reset } =
-    useSearch(apiKey);
+  const searchState = useSearchStore();
 
-  const [fileState, setFileState] = useState<FileWithPreview | null>(null);
-  const [prompt, setPrompt] = useState("");
-  const [feedback, setFeedback] = useState<Record<string, "up" | "down">>({});
-
-  const isSearching = status === "analyzing" || status === "ranking";
+  const isSearching =
+    searchState.status === "analyzing" || searchState.status === "ranking";
   const hasResults =
-    status === "done" || status === "not-furniture" || status === "error";
+    searchState.status === "done" ||
+    searchState.status === "not-furniture" ||
+    searchState.status === "error";
 
   const handleSearch = useCallback(() => {
-    if (!fileState) return;
-    search(fileState.file, prompt.trim() || undefined);
-  }, [fileState, prompt, search]);
-
-  const handleFeedback = useCallback(
-    (productId: string, rating: "up" | "down") => {
-      setFeedback((prev) => ({ ...prev, [productId]: rating }));
-
-      fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId, rating }),
-      }).catch(() => {
-        // Silently ignore — feedback is non-critical (in-memory, lost on restart)
-      });
-    },
-    [],
-  );
-
-  const handleNewSearch = useCallback(() => {
-    reset();
-    if (fileState) {
-      URL.revokeObjectURL(fileState.previewUrl);
-      setFileState(null);
-    }
-    setPrompt("");
-    setFeedback({});
-  }, [reset, fileState]);
+    if (!apiKey || !searchState.fileState) return;
+    searchState.search(apiKey);
+  }, [apiKey, searchState]);
 
   const handleRetry = useCallback(() => {
-    if (!fileState) return;
-    search(fileState.file, prompt.trim() || undefined);
-  }, [fileState, prompt, search]);
+    if (!apiKey || !searchState.fileState) return;
+    searchState.search(apiKey);
+  }, [apiKey, searchState]);
 
   return (
     <div className="space-y-6">
@@ -71,8 +44,8 @@ export function SearchPage() {
       </div>
 
       <ImageUpload
-        value={fileState}
-        onChange={setFileState}
+        value={searchState.fileState}
+        onChange={searchState.setFileState}
         disabled={isSearching}
       />
 
@@ -83,41 +56,41 @@ export function SearchPage() {
         <Textarea
           id="search-prompt"
           placeholder="Describe what you're looking for..."
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value.slice(0, MAX_PROMPT_LENGTH))}
+          value={searchState.prompt}
+          onChange={(e) => searchState.setPrompt(e.target.value.slice(0, MAX_PROMPT_LENGTH))}
           disabled={isSearching}
           rows={2}
         />
         <p className="text-xs text-muted-foreground text-right">
-          {prompt.length}/{MAX_PROMPT_LENGTH}
+          {searchState.prompt.length}/{MAX_PROMPT_LENGTH}
         </p>
       </div>
 
       <div className="flex gap-2">
         <Button
           onClick={handleSearch}
-          disabled={!fileState || isSearching}
+          disabled={!searchState.fileState || isSearching}
         >
           {isSearching && <Loader2 className="size-4 animate-spin" />}
           {isSearching ? "Searching..." : "Search"}
         </Button>
         {hasResults && (
-          <Button variant="outline" onClick={handleNewSearch}>
+          <Button variant="outline" onClick={searchState.reset}>
             New Search
           </Button>
         )}
       </div>
 
       <ResultGrid
-        status={status}
-        analysis={analysis}
-        candidates={candidates}
-        results={results}
-        scoreThreshold={scoreThreshold}
-        error={error}
+        status={searchState.status}
+        analysis={searchState.analysis}
+        candidates={searchState.candidates}
+        results={searchState.results}
+        scoreThreshold={searchState.scoreThreshold}
+        error={searchState.error}
         onRetry={handleRetry}
-        feedback={feedback}
-        onFeedback={handleFeedback}
+        feedback={searchState.feedback}
+        onFeedback={searchState.setFeedback}
       />
     </div>
   );

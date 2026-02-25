@@ -2,9 +2,16 @@ import { Loader2, Info, AlertCircle } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { ResultCard } from "@/components/result-card";
-import type { SearchState } from "@/hooks/use-search";
+import type { SearchStatus } from "@/lib/store/search-store";
+import type { ImageAnalysisResult, Product, ScoredProduct } from "@/lib/schemas";
 
-interface ResultGridProps extends SearchState {
+interface ResultGridProps {
+  status: SearchStatus;
+  analysis: ImageAnalysisResult | null;
+  candidates: Product[];
+  results: ScoredProduct[];
+  scoreThreshold: number;
+  error: string | null;
   onRetry: () => void;
   feedback: Record<string, "up" | "down">;
   onFeedback: (productId: string, rating: "up" | "down") => void;
