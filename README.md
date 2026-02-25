@@ -55,7 +55,7 @@ A full-stack application that lets users upload an image of a furniture item and
 | Framework | Next.js 16 (App Router) + React 19 + TypeScript |
 | UI | shadcn/ui + Tailwind CSS 4 |
 | Validation | Zod 4 (runtime input validation + type inference) |
-| Database | MongoDB Atlas (read-only, pre-populated) via Mongoose 9 |
+| Database | Local MongoDB via Docker (seeded with catalog data) via Mongoose 9 |
 | AI | Claude API (Vision + Text) by Anthropic via @anthropic-ai/sdk |
 | Streaming | NDJSON over `ReadableStream` (two-phase search results) |
 | Upload | Next.js Route Handlers (in-memory FormData) |
@@ -65,6 +65,7 @@ A full-stack application that lets users upload an image of a furniture item and
 ### Prerequisites
 
 - Node.js 18+
+- Docker Desktop (or equivalent, such as OrbStack)
 - An Anthropic API key (entered at runtime in the UI)
 
 ### Installation
@@ -76,6 +77,10 @@ cd image-based-product-search
 
 # Install dependencies
 npm install
+
+# Build and start the local MongoDB container (seeds database on first run)
+chmod +x data/mongo-init.sh
+docker compose up -d
 
 # Copy environment template and fill in your values
 cp .env.example .env.local
