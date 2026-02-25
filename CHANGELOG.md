@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file. Particular 
 ### Added
 - Local MongoDB development environment via Docker Compose (`docker-compose.yml`, `data/mongo-init.sh`) to mimic production state and isolate development data.
 - Global application context guidelines extracted to `GEMINI.md`.
+- Vitest configuration (`vitest.config.ts`) for fast, pure-logic unit testing of Next.js functions along with initial coverage for `api-error.ts` and `prompt.ts`.
+- GitHub Actions CI workflow (`.github/workflows/ci.yml`) triggering on pushes and PRs to `main`, enforcing ESLint, TypeScript compilation, Vitest suites, and a Next.js production build check.
 
 ### Changed
 - App icon (`app/icon.svg`) fundamentally redesigned from a generic placeholder to a highly polished, scalable, modern armchair-in-lens graphic with custom gradients.
